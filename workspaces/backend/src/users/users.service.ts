@@ -32,8 +32,8 @@ export class UsersService {
     return user;
   }
 
-  async findOneWithPassword(id: string) {
-    return await this.userModel.findById(id).select('+password');
+  async findOneWithPassword(email: string) {
+    return await this.userModel.findOne({ email }).select('+password');
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
