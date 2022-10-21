@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsEmail, IsIn, IsNotEmpty, IsString } from 'class-validator';
-import { DeliveryInfo, AccountRole } from '../schemas/user.schema';
+import { DeliveryAddress } from '../schemas/user.schema';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Name required' })
@@ -15,8 +15,8 @@ export class CreateUserDto {
   @IsEmail({ message: 'Not valid email format' })
   email: string;
 
-  @Type(() => DeliveryInfo)
-  deliveryAdress: DeliveryInfo;
+  @Type(() => DeliveryAddress)
+  deliveryAdress: DeliveryAddress;
 
   @IsNotEmpty()
   @IsIn(['admin', 'customer'])

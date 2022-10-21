@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-export class DeliveryInfo {
+export class DeliveryAddress {
   @IsNotEmpty({ message: 'Not empty' })
   streetAdress: string;
   @IsNotEmpty({ message: 'Not empty' })
@@ -24,7 +24,7 @@ export class User {
   @Prop()
   fullName: string;
 
-  @Prop()
+  @Prop({ select: false })
   password: string;
 
   @Prop()
@@ -34,7 +34,7 @@ export class User {
   phoneNumber: string;
 
   @Prop()
-  deliveryAdress: DeliveryInfo;
+  deliveryAdress: DeliveryAddress;
 
   @Prop({ default: 'customer' })
   role: string;
