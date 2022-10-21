@@ -41,7 +41,7 @@ export class CategoriesService {
     return category;
   }
 
-  async delete(id: string): Promise<Category> {
+  async remove(id: string): Promise<Category> {
     const category = await this.categoryModel.findByIdAndDelete(id);
     return category;
   }
