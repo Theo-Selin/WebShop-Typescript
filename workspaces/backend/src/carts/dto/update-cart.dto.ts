@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCartDto } from './create-cart.dto';
+import { IsIn } from 'class-validator';
+import { DeliveryAddress } from 'src/users/schemas/user.schema';
 
-export class UpdateCartDto extends PartialType(CreateCartDto) {}
+export class UpdateCartDto {
+  @IsIn(['active', 'registered', 'inProgress', 'inDelivery', 'delivered'])
+  status: string;
+
+  deliveryAddress: DeliveryAddress;
+}
