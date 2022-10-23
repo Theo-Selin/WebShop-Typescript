@@ -32,6 +32,10 @@ export class UsersService {
     return user;
   }
 
+  async findOneByEmail(email: string) {
+    return await this.userModel.findOne({ email });
+  }
+
   async findOneWithPassword(email: string) {
     return await this.userModel.findOne({ email }).select('+password');
   }
