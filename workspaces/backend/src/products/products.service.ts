@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -11,9 +11,11 @@ export class ProductsService {
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
   ) {}
+  private readonly logger = new Logger(ProductsService.name);
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const newProduct = await this.productModel.create(createProductDto);
+    this.logger.log(`Product created: ${newProduct.id}`);
     return newProduct;
   }
 
