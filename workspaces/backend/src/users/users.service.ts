@@ -36,10 +36,6 @@ export class UsersService {
     return await this.userModel.findOne({ email });
   }
 
-  async findOneWithPassword(email: string) {
-    return await this.userModel.findOne({ email }).select('+password');
-  }
-
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       returnDocument: 'after',
