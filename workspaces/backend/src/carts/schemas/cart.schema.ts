@@ -9,12 +9,20 @@ type CartItem = {
   quantity: number;
 };
 
-export type CartStatus =
-  | 'active'
-  | 'registered'
-  | 'inProgress'
-  | 'inDelivery'
-  | 'delivered';
+export enum CartStatus {
+  Active = 'active',
+  Registered = 'registered',
+  InProgress = 'inProgress',
+  InDelivery = 'inDelivery',
+  Delivered = 'delivered',
+}
+
+// export type CartStatus =
+//   | 'active'
+//   | 'registered'
+//   | 'inProgress'
+//   | 'inDelivery'
+//   | 'delivered';
 
 @Schema({ timestamps: true })
 export class Cart {
@@ -28,7 +36,7 @@ export class Cart {
   ])
   products: CartItem[];
 
-  @Prop({ default: 'active' })
+  @Prop({ default: CartStatus.Active })
   status: CartStatus;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })

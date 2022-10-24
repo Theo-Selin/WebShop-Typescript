@@ -1,6 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/auth/role.enum';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category, CategoryDocument } from './schemas/category.schema';
@@ -14,6 +16,7 @@ export class CategoriesService {
 
   private readonly logger = new Logger(CategoriesService.name);
 
+  @Roles(Role.Admin)
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const newCategory = await this.categoryModel.create(createCategoryDto);
     this.logger.log(`Category ${newCategory.name} created`);
@@ -30,6 +33,7 @@ export class CategoriesService {
     return category;
   }
 
+  @Roles(Role.Admin)
   async update(
     id: string,
     updateCategoryDto: UpdateCategoryDto,
@@ -45,6 +49,7 @@ export class CategoriesService {
     return category;
   }
 
+  @Roles(Role.Admin)
   async remove(id: string): Promise<Category> {
     const category = await this.categoryModel.findByIdAndDelete(id);
     return category;

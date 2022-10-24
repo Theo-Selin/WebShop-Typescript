@@ -34,11 +34,13 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
+  @Roles(Role.Admin)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.usersService.findOne(id);
   }
 
+  @Roles(Role.Admin)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(id, updateUserDto);
