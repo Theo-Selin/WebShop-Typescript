@@ -22,8 +22,7 @@ export class AccountRole {
 
 @Schema()
 export class User {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Transform(({ value, obj }) => {
+  @Transform(({ obj }) => {
     return obj._id.toString();
   })
   _id: ObjectId;

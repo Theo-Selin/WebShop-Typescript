@@ -1,8 +1,9 @@
-import { IsIn } from 'class-validator';
+import { IsEnum } from 'class-validator';
 import { DeliveryAddress } from 'src/users/schemas/user.schema';
+import { CartStatus } from '../schemas/cart.schema';
 
 export class UpdateCartDto {
-  @IsIn(['active', 'registered', 'inProgress', 'inDelivery', 'delivered'])
+  @IsEnum(CartStatus)
   status: string;
 
   deliveryAddress: DeliveryAddress;
