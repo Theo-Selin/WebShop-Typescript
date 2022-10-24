@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -10,25 +10,31 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  private readonly logger = new Logger(AuthService.name);
+
   async validateUser(email: string, inputPassword: string) {
-    const user = await this.usersService.findOneWithPassword(email);
+    const user = await this.usersService.findOneByEmail(email);
     if (user) {
       try {
         const verified = await bcrypt.compare(inputPassword, user.password);
         if (verified) {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { password, ...result } = user.toObject();
-          return result;
-        } else return null;
+          return user;
+        } else {
+          this.logger.warn(`User ${user._id} no matching password`);
+          return null;
+        }
       } catch (error) {
+        this.logger.error(error);
         return null;
       }
     }
+    this.logger.error(`User with email ${email} not found`);
     return null;
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user._id };
+    const payload = { email: user.email, sub: user._id, role: user.role };
+    this.logger.log(`User ${user.id} logged in`);
     return {
       access_token: this.jwtService.sign(payload),
     };

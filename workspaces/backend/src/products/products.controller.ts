@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 import { Product } from './schemas/products.schema';
@@ -20,11 +21,13 @@ export class ProductsController {
     return await this.productsServices.create(product);
   }
 
+  @Public()
   @Get()
   async findAll() {
     return await this.productsServices.findAll();
   }
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.productsServices.findOne(id);

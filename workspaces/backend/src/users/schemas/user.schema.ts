@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Exclude, Transform } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -21,10 +22,17 @@ export class AccountRole {
 
 @Schema()
 export class User {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Transform(({ value, obj }) => {
+    return obj._id.toString();
+  })
+  _id: ObjectId;
+
   @Prop()
   fullName: string;
 
-  @Prop({ select: false })
+  @Exclude()
+  @Prop()
   password: string;
 
   @Prop()
