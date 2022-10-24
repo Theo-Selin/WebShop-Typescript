@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AddToCartDto } from './dto/add-to-cart.dto';
@@ -13,8 +13,12 @@ export class CartsService {
     @InjectModel(Cart.name)
     private readonly cartModel: Model<CartDocument>,
   ) {}
+
+  private readonly logger = new Logger(CartsService.name);
+
   async create(createCartDto: CreateCartDto): Promise<Cart> {
     const newCart = await this.cartModel.create(createCartDto);
+    this.logger.log(`Cart ${newCart.id} for user ${newCart.user} created`);
     return newCart;
   }
 
@@ -38,6 +42,7 @@ export class CartsService {
       if (cart) {
         return cart;
       } else {
+        this.logger.error(`Cart with id ${id} not found`);
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
@@ -48,6 +53,7 @@ export class CartsService {
         );
       }
     } catch (err) {
+      this.logger.error(err);
       throw new HttpException(
         {
           statusCode: HttpStatus.NOT_FOUND,
@@ -73,6 +79,7 @@ export class CartsService {
       ),
       product,
     ];
+    this.logger.log(`Product ${addToCartDto.productId} added to cart ${id}`);
 
     return await cart.save();
   }
@@ -96,6 +103,9 @@ export class CartsService {
       }
       return await cart.save();
     } else {
+      this.logger.error(
+        `Product ${updateQuantityDto.productId} not found in cart ${id}`,
+      );
       throw new HttpException(
         {
           statusCode: HttpStatus.NOT_FOUND,
