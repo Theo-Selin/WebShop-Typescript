@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/role.enum';
 import { CategoriesService } from './categories.service';
@@ -23,6 +24,7 @@ export class CategoriesController {
     return await this.categoriesService.create(createCategoryDto);
   }
 
+  @Public()
   @Get()
   async findAll() {
     return await this.categoriesService.findAll();
