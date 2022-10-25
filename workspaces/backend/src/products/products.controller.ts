@@ -6,14 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/role.enum';
+import MongooseClassSerializerInterceptor from 'src/utils/mongooseClassSerializer.interceptor';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 import { Product } from './schemas/products.schema';
 
+@UseInterceptors(MongooseClassSerializerInterceptor(Product))
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsServices: ProductsService) {}

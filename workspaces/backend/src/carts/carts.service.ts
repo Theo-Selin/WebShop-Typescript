@@ -16,7 +16,7 @@ export class CartsService {
 
   private readonly logger = new Logger(CartsService.name);
 
-  async create(createCartDto: CreateCartDto): Promise<Cart> {
+  async create(createCartDto: CreateCartDto): Promise<CartDocument> {
     const newCart = await this.cartModel.create(createCartDto);
     this.logger.log(`Cart ${newCart.id} for user ${newCart.user} created`);
     return newCart;
@@ -29,16 +29,15 @@ export class CartsService {
 
   async findOne(id: string): Promise<Cart> {
     try {
-      const cart = await this.cartModel
-        .findById(id)
-        .populate('user')
-        .populate({
-          path: 'products',
-          populate: {
-            path: 'productId',
-            model: 'Product',
-          },
-        });
+      const cart = await this.cartModel.findById(id);
+      // .populate('user')
+      // .populate({
+      //   path: 'products',
+      //   populate: {
+      //     path: 'productId',
+      //     model: 'Product',
+      //   },
+      // });
       if (cart) {
         return cart;
       } else {

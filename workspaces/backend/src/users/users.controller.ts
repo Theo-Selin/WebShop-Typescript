@@ -17,8 +17,8 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/role.enum';
 import { Public } from 'src/auth/decorators/public.decorator';
 
-@Controller('users')
 @UseInterceptors(MongooseClassSerializerInterceptor(User))
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

@@ -10,5 +10,6 @@ import { Cart, CartSchema } from './schemas/cart.schema';
   ],
   controllers: [CartsController],
   providers: [CartsService],
+  exports: [CartsService],
 })
 export class CartsModule {}

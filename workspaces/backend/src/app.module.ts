@@ -15,7 +15,6 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot('mongodb://localhost:27017/web-shop'),
-    ConfigModule,
     ProductsModule,
     CategoriesModule,
     UsersModule,
