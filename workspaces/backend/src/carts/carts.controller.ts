@@ -6,17 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/role.enum';
+import MongooseClassSerializerInterceptor from 'src/utils/mongooseClassSerializer.interceptor';
 import { CartsService } from './carts.service';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { UpdateQuantityDto } from './dto/update-quantity-cart.dto';
-import { CartStatus } from './schemas/cart.schema';
+import { Cart, CartStatus } from './schemas/cart.schema';
 
 @Controller('carts')
+@UseInterceptors(MongooseClassSerializerInterceptor(Cart))
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 
@@ -24,7 +27,6 @@ export class CartsController {
   @Roles(Role.Admin)
   @Post()
   async create(@Body() createCartDto: CreateCartDto) {
-    console.log(CartStatus);
     return await this.cartsService.create(createCartDto);
   }
 
@@ -61,7 +63,7 @@ export class CartsController {
 
   @Roles(Role.Admin)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-    return this.cartsService.update(id, updateCartDto);
+  async update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
+    return await this.cartsService.update(id, updateCartDto);
   }
 }

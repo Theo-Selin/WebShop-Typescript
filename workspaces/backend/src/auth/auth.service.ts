@@ -20,7 +20,7 @@ export class AuthService {
         if (verified) {
           return user;
         } else {
-          this.logger.warn(`User ${user._id} no matching password`);
+          // this.logger.warn(`User ${user._id} no matching password`);
           return null;
         }
       } catch (error) {

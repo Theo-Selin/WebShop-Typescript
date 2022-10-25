@@ -1,13 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Transform, Type } from 'class-transformer';
 import mongoose, { Document } from 'mongoose';
-import { DeliveryAddress } from 'src/users/schemas/user.schema';
+import { Address } from 'src/users/schemas/address.schema';
+import { CartItem } from './cart-item.schema';
 
 export type CartDocument = Cart & Document;
-
-type CartItem = {
-  productId: string;
-  quantity: number;
-};
 
 export enum CartStatus {
   Active = 'active',
@@ -17,15 +14,11 @@ export enum CartStatus {
   Delivered = 'delivered',
 }
 
-// export type CartStatus =
-//   | 'active'
-//   | 'registered'
-//   | 'inProgress'
-//   | 'inDelivery'
-//   | 'delivered';
-
 @Schema({ timestamps: true })
 export class Cart {
+  @Transform(({ obj }) => obj._id.toString())
+  _id: string;
+
   @Prop([
     {
       productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
@@ -34,16 +27,19 @@ export class Cart {
       _id: false,
     },
   ])
+  @Type(() => CartItem)
   products: CartItem[];
 
   @Prop({ default: CartStatus.Active })
   status: CartStatus;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Transform(({ obj }) => obj.user.toString())
   user: string;
 
   @Prop()
-  deliveryAdress: DeliveryAddress;
+  @Type(() => Address)
+  deliveryAddress: Address;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

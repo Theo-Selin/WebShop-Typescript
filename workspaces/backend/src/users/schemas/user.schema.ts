@@ -1,20 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Exclude, Transform } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
-import { Document, ObjectId } from 'mongoose';
+import { Exclude, Transform, Type } from 'class-transformer';
+import mongoose, { Document, ObjectId } from 'mongoose';
+import { Cart } from 'src/carts/schemas/cart.schema';
+import { Address } from './address.schema';
 
 export type UserDocument = User & Document;
-
-export class DeliveryAddress {
-  @IsNotEmpty({ message: 'Not empty' })
-  streetAdress: string;
-  @IsNotEmpty({ message: 'Not empty' })
-  zipCode: string;
-  @IsNotEmpty({ message: 'Not empty' })
-  city: string;
-  @IsNotEmpty({ message: 'Not empty' })
-  country: string;
-}
 
 export class AccountRole {
   type: 'admin' | 'customer';
@@ -22,9 +12,7 @@ export class AccountRole {
 
 @Schema()
 export class User {
-  @Transform(({ obj }) => {
-    return obj._id.toString();
-  })
+  @Transform(({ obj }) => obj._id.toString())
   _id: ObjectId;
 
   @Prop()
@@ -41,10 +29,15 @@ export class User {
   phoneNumber: string;
 
   @Prop()
-  deliveryAdress: DeliveryAddress;
+  @Type(() => Address)
+  deliveryAdress: Address;
 
   @Prop({ default: 'customer' })
-  role: string;
+  role: AccountRole;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Cart.name })
+  @Transform(({ obj }) => obj._id.toString())
+  activeCart: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

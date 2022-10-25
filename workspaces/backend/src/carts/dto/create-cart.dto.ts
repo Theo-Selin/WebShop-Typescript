@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose';
+
 export class CreateCartDto {
-  readonly user: string;
+  readonly user: ObjectId;
 }
