@@ -11,7 +11,7 @@ const Header = () => {
   const token = false;
 
   return (
-    <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4">
+    <header className="fixed top-0 z-30 flex w-full items-center justify-between p-4">
       <div className="flex items-center justify-center md:w-1/5">
         <Link href="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
