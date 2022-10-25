@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import WebShopLogo from "../assets/WebShopLogo.png";
 import React from "react";
 import {
   SearchIcon,
@@ -16,7 +15,7 @@ const Header = () => {
       <div className="flex items-center justify-center md:w-1/5">
         <Link href="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
-            <Image src={WebShopLogo} layout="fill" objectFit="contain" />
+            <Image src="/WebShopLogo.png" layout="fill" objectFit="contain" />
           </div>
         </Link>
       </div>
@@ -30,7 +29,7 @@ const Header = () => {
         <SearchIcon className="headerIcon" />
         <Link href="/checkout">
           <div className="relative cursor-pointer">
-            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
+            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
               5
             </span>
             <ShoppingBagIcon className="headerIcon" />
