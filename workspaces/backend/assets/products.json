@@ -1,0 +1,26 @@
+[
+  {
+    "name": "product 1",
+    "description": "product 1",
+    "weight": 1,
+    "price": 1,
+    "manufaturer": "product 1",
+    "images": ["image 1", "image 2"]
+  },
+  {
+    "name": "product 2",
+    "description": "product 2",
+    "weight": 2,
+    "price": 2,
+    "manufaturer": "product 2",
+    "images": ["image 1", "image 2"]
+  },
+  {
+    "name": "product 3",
+    "description": "product 3",
+    "weight": 3,
+    "price": 3,
+    "manufaturer": "product 3",
+    "images": ["image 1", "image 2"]
+  }
+]
