@@ -16,10 +16,10 @@ import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { UpdateQuantityDto } from './dto/update-quantity-cart.dto';
-import { Cart, CartStatus } from './schemas/cart.schema';
+import { Cart } from './schemas/cart.schema';
 
 @Controller('carts')
-@UseInterceptors(MongooseClassSerializerInterceptor(Cart))
+@UseInterceptors(MongooseClassSerializerInterceptor({ defaultClass: Cart }))
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 

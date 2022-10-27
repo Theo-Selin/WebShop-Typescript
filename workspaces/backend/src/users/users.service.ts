@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/user.schema';
@@ -42,7 +42,7 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.userModel.findById(id);
+    const user = await this.userModel.findById(id).populate('activeCart');
     return user;
   }
 
