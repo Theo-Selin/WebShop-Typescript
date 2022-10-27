@@ -16,8 +16,10 @@ import { User } from './schemas/user.schema';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/role.enum';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { ResponseDto } from 'src/utils/response-dto.decorator';
+import { FindOneResponseDto } from './dto/find-one-response.dto';
 
-@UseInterceptors(MongooseClassSerializerInterceptor(User))
+@UseInterceptors(MongooseClassSerializerInterceptor({ defaultClass: User }))
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -34,6 +36,7 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
+  @ResponseDto(FindOneResponseDto)
   @Roles(Role.Admin)
   @Get(':id')
   async findOne(@Param('id') id: string) {
