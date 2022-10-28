@@ -6,6 +6,8 @@ import { Tab } from "@headlessui/react";
 import { fetchCategories } from "../utils/fetchCategories";
 import { fetchProducts } from "../utils/fetchProducts";
 import Product from "../components/Product";
+import { Toaster } from "react-hot-toast";
+import Basket from "../components/Basket";
 
 interface Props {
   categories: Category[];
@@ -33,27 +35,25 @@ const Home = ({ categories, products }: Props) => {
       </Head>
 
       <Header />
-      <main className="relative h-[200vh] bg-gradient-to-t from-gray-400 to-[#E7ECEE]">
+      <Basket />
+      <main className="static h-[200vh]">
         <Landing />
+        <Toaster />
       </main>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-black/80 backdrop-blur-md">
         <div className="space-y-10">
-          <h1 className="text-1xl py-2 text-center font-medium tracking-wide text-gray-300 md:text-2xl">
-            Store
-          </h1>
-
           {/* Headless UI category tab menu */}
           <Tab.Group>
-            <Tab.List className="flex justify-center">
+            <Tab.List className="scrollbar-hide sticky top-0 z-50 flex overflow-scroll bg-black sm:justify-center">
               {categories.map((category) => (
                 <Tab
                   key={category._id}
                   id={category._id}
                   className={({ selected }) =>
-                    `whitespace-nowrap rounded-t-lg py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base ${
+                    ` whitespace-nowrap py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base ${
                       selected
                         ? "borderGradient bg-[#35383C] text-white"
-                        : "border-b-2 border-[#35383C] text-[#747474]"
+                        : "border-b-2 border-[#35383C] text-white"
                     }`
                   }
                 >

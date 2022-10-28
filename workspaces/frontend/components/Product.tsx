@@ -2,15 +2,24 @@ import { ShoppingCartIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   product: Product;
 }
 
 const Product = ({ product }: Props) => {
+  // TODO //
+  const addItemToCart = () => {
+    toast.success(`${product.name} added to cart`, {
+      position: "top-center",
+      className: "text-sm",
+    });
+  };
+
   return (
-    <div className="flex h-fit w-fit select-none flex-col space-y-3 rounded-xl bg-[#ffffff] p-8 md:h-[500px] md:w-[400px] md:p-10">
-      <div className="relative h-64 w-full md:h-72">
+    <div className="h-68 flex w-60 select-none flex-col items-center space-y-3 rounded-xl bg-[#ffffff] p-8 md:h-[500px] md:w-[400px] md:p-10">
+      <div className="relative h-64 w-52 md:h-72">
         <Image src={product.images[0]} layout="fill" objectFit="contain" />
       </div>
 
@@ -20,7 +29,7 @@ const Product = ({ product }: Props) => {
           <p className="text-pink-600">{product.price}:-</p>
         </div>
 
-        <div className="addToCartBtn">
+        <div className="addToCartBtn" onClick={addItemToCart}>
           <ShoppingCartIcon className="h-6 w-6 text-gray-200" />
         </div>
       </div>
