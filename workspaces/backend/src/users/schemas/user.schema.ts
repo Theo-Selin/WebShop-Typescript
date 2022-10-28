@@ -30,7 +30,7 @@ export class User {
 
   @Prop()
   @Type(() => Address)
-  deliveryAdress: Address;
+  deliveryAddress: Address;
 
   @Prop({ default: 'customer' })
   role: AccountRole;
