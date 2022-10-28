@@ -17,7 +17,7 @@ export class FindOneResponseDto {
   phoneNumber: string;
 
   @Type(() => Address)
-  deliveryAdress: Address;
+  deliveryAddress: Address;
 
   role: AccountRole;
 

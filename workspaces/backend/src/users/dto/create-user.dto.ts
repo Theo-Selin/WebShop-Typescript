@@ -16,7 +16,7 @@ export class CreateUserDto {
   email: string;
 
   @Type(() => Address)
-  deliveryAdress: Address;
+  deliveryAddress: Address;
 
   @IsNotEmpty()
   @IsIn(['admin', 'customer'])
