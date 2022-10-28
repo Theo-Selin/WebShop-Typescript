@@ -1,6 +1,6 @@
 interface GlobalContent {
-  userInfo: User | null
-  setUserInfo?: React.Dispatch<React.SetStateAction<User | null>>
+  userInfo: User | null;
+  setUserInfo?: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 interface Category {
@@ -9,34 +9,34 @@ interface Category {
 }
 
 interface Product {
-  _id?: string
+  _id?: string;
   name: string;
   description: string;
   weight: number;
   price: number;
   manufacturer: string;
   images: string[];
-  category: Category
+  category: Category;
 }
 
 interface CartItem {
   productId: string;
   quantity: number;
-};
+}
 interface CartStatus {
-  Active: 'active',
-  Registered: 'registered',
-  InProgress: 'inProgress',
-  InDelivery: 'inDelivery',
-  Delivered: 'delivered',
+  Active: "active";
+  Registered: "registered";
+  InProgress: "inProgress";
+  InDelivery: "inDelivery";
+  Delivered: "delivered";
 }
 interface Cart {
-  _id?: string
-  productId: string
+  _id?: string;
+  productId: string;
   products: CartItem[];
   status: CartStatus;
   user: string;
-  deliveryAdress: DeliveryAddress;
+  deliveryAddress: DeliveryAddress;
 }
 
 interface User {
@@ -45,7 +45,7 @@ interface User {
   password: string;
   email: string;
   phoneNumber: string;
-  deliveryAdress: Address;
+  deliveryAddress: Address;
   role: AccountRole;
   activeCart: Cart;
 }
