@@ -1,3 +1,8 @@
+interface GlobalContent {
+  userInfo: User | null
+  setUserInfo?: React.Dispatch<React.SetStateAction<User | null>>
+}
+
 interface Category {
   _id?: string;
   name: string;
@@ -32,4 +37,22 @@ interface Cart {
   status: CartStatus;
   user: string;
   deliveryAdress: DeliveryAddress;
+}
+
+interface User {
+  _id: ObjectId;
+  fullName: string;
+  password: string;
+  email: string;
+  phoneNumber: string;
+  deliveryAdress: Address;
+  role: AccountRole;
+  activeCart: Cart;
+}
+
+interface Address {
+  streetAddress: string;
+  zipCode: string;
+  city: string;
+  country: string;
 }
