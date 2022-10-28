@@ -8,6 +8,17 @@
   body {
     @apply font-body text-[#232428];
   }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 }
 
 @layer components {
@@ -24,7 +35,7 @@
   }
 
   .tabPanel {
-    @apply grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3;
+    @apply overflow-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3;
   }
 
   .addToCartBtn {

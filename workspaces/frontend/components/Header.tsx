@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { fetchCart } from "../utils/fetchCart";
 import {
   SearchIcon,
   ShoppingBagIcon,
@@ -9,6 +10,8 @@ import {
 
 const Header = () => {
   const token = false;
+  // Fetch cart to show the amount of products
+  // const cartItems = fetchCart();
 
   return (
     <header className="fixed top-0 z-30 flex w-full items-center justify-between p-4">
@@ -30,7 +33,8 @@ const Header = () => {
         <Link href="/checkout">
           <div className="relative cursor-pointer">
             <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
-              5
+              {/* Get cart length */}
+              {/* {cartItems.products.length} */}
             </span>
             <ShoppingBagIcon className="headerIcon" />
           </div>
