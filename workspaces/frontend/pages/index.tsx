@@ -15,9 +15,6 @@ interface Props {
 }
 
 const Home = ({ categories, products }: Props) => {
-  console.log(products);
-  console.log(categories);
-
   const showProducts = (categoryIndex: number) => {
     return products
       .filter(
@@ -27,6 +24,7 @@ const Home = ({ categories, products }: Props) => {
         return <Product product={product} key={product._id} />;
       });
   };
+
   return (
     <div>
       <Head>
@@ -44,7 +42,7 @@ const Home = ({ categories, products }: Props) => {
         <div className="space-y-10">
           {/* Headless UI category tab menu */}
           <Tab.Group>
-            <Tab.List className="scrollbar-hide sticky top-0 z-50 flex overflow-scroll bg-black sm:justify-center">
+            <Tab.List className="scrollbar-hide sticky top-0 z-50 flex overflow-scroll bg-[#232428] sm:justify-center">
               {categories.map((category) => (
                 <Tab
                   key={category._id}
@@ -79,6 +77,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const categories = await fetchCategories();
   const products = await fetchProducts();
+  // const cartItems = await fetchCartItems();
 
   return {
     props: {
