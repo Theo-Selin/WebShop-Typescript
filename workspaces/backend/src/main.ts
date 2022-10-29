@@ -7,9 +7,9 @@ const port = 4000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await initProducts();
-  app.enableCors()
+  app.enableCors();
   await app.listen(port);
   console.log(`server is listening on port: ${port}`);
 }
