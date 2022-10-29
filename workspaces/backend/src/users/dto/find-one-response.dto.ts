@@ -1,5 +1,5 @@
 import { Exclude, Transform, Type } from 'class-transformer';
-import { Cart } from 'src/carts/schemas/cart.schema';
+import { Cart } from '../../carts/schemas/cart.schema';
 import { Address } from '../schemas/address.schema';
 import { AccountRole } from '../schemas/user.schema';
 

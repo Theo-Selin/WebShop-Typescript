@@ -1,6 +1,6 @@
-import { AppModule } from 'src/app.module';
+import { AppModule } from '../app.module';
 import { NestFactory } from '@nestjs/core';
-import { ProductsService } from 'src/products/products.service';
+import { ProductsService } from '../products/products.service';
 import { readFileSync } from 'fs';
 
 export const initProducts = async (): Promise<void> => {

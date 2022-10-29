@@ -11,12 +11,12 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import MongooseClassSerializerInterceptor from 'src/utils/mongooseClassSerializer.interceptor';
+import MongooseClassSerializerInterceptor from '../utils/mongooseClassSerializer.interceptor';
 import { User } from './schemas/user.schema';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/auth/role.enum';
-import { Public } from 'src/auth/decorators/public.decorator';
-import { ResponseDto } from 'src/utils/response-dto.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/role.enum';
+import { Public } from '../auth/decorators/public.decorator';
+import { ResponseDto } from '../utils/response-dto.decorator';
 import { FindOneResponseDto } from './dto/find-one-response.dto';
 
 @UseInterceptors(MongooseClassSerializerInterceptor({ defaultClass: User }))
