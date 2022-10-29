@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Exclude, Transform, Type } from 'class-transformer';
 import mongoose, { Document, ObjectId } from 'mongoose';
-import { Cart } from 'src/carts/schemas/cart.schema';
+import { Cart } from '../../carts/schemas/cart.schema';
 import { Address } from './address.schema';
 
 export type UserDocument = User & Document;
