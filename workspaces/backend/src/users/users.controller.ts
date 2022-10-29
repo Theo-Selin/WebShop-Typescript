@@ -20,6 +20,7 @@ import { Public } from '../auth/decorators/public.decorator';
 import { ResponseDto } from '../utils/response-dto.decorator';
 import { FindOneResponseDto } from './dto/find-one-response.dto';
 import { Request } from 'express';
+import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 
 interface JwtPayload {
   userId: string;
@@ -56,6 +57,15 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.usersService.findOne(id);
+  }
+
+  @Patch('me')
+  async updateLoggedInUser(
+    @Body() updatedLoggedInUserDto: UpdateLoggedInUserDto,
+    @Req() req: Request,
+  ) {
+    const { userId } = req.user as JwtPayload;
+    return await this.usersService.update(userId, updatedLoggedInUserDto);
   }
 
   @Roles(Role.Admin)

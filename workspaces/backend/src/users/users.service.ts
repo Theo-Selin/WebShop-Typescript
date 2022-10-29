@@ -7,6 +7,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import * as bcrypt from 'bcrypt';
 import { CartsService } from '../carts/carts.service';
 import { ConfigService } from '@nestjs/config';
+import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -50,7 +51,10 @@ export class UsersService {
     return await this.userModel.findOne({ email });
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto | UpdateLoggedInUserDto,
+  ): Promise<User> {
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       returnDocument: 'after',
     });

@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
-import { IsEmail, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 import { Address } from '../schemas/address.schema';
 
-export class UpdateUserDto {
+export class UpdateLoggedInUserDto {
   @IsOptional()
   @IsString({ message: 'Must be a string' })
   fullName: string;
@@ -14,8 +14,4 @@ export class UpdateUserDto {
   @IsOptional()
   @Type(() => Address)
   deliveryAddress: Address;
-
-  @IsOptional()
-  @IsIn(['admin', 'customer'])
-  role: string;
 }
