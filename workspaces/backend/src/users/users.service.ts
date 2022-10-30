@@ -8,6 +8,8 @@ import * as bcrypt from 'bcrypt';
 import { CartsService } from '../carts/carts.service';
 import { ConfigService } from '@nestjs/config';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
+import { EmailExistsException } from './exceptions/userEmailExists.exception';
+import { UserNotFoundException } from './exceptions/userNotFound.exception';
 
 @Injectable()
 export class UsersService {
@@ -21,20 +23,24 @@ export class UsersService {
   private readonly logger = new Logger(UsersService.name);
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const hash = await bcrypt.hash(
-      createUserDto.password,
-      parseInt(this.config.get('SALT_ROUNDS')),
-    );
-    createUserDto.password = hash;
-    const newUser = await this.userModel.create(createUserDto);
-    const cart = await this.cartsService.create({
-      user: newUser._id.toString(),
-    });
-    newUser.activeCart = cart._id;
-    await newUser.save();
+    try {
+      const hash = await bcrypt.hash(
+        createUserDto.password,
+        parseInt(this.config.get('SALT_ROUNDS')),
+      );
+      createUserDto.password = hash;
+      const newUser = await this.userModel.create(createUserDto);
+      const cart = await this.cartsService.create({
+        user: newUser._id.toString(),
+      });
+      newUser.activeCart = cart._id;
+      await newUser.save();
 
-    this.logger.log(`New user created ${newUser.email} ${newUser.id}`);
-    return newUser;
+      this.logger.log(`New user created ${newUser.email} ${newUser.id}`);
+      return newUser;
+    } catch (err) {
+      throw new EmailExistsException();
+    }
   }
 
   async findAll(): Promise<User[]> {
@@ -44,7 +50,11 @@ export class UsersService {
 
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).populate('activeCart');
-    return user;
+    if (user) {
+      return user;
+    } else {
+      throw new UserNotFoundException(id);
+    }
   }
 
   async findOneByEmail(email: string): Promise<User> {
