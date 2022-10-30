@@ -8,9 +8,10 @@ import { UsersModule } from './users/users.module';
 import { CartsModule } from './carts/carts.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesGuard } from './auth/guards/roles.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { UploadsModule } from './uploads/uploads.module';
+import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { UploadsModule } from './uploads/uploads.module';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: ExceptionsLoggerFilter,
     },
   ],
 })
