@@ -22,7 +22,7 @@ import { FindOneResponseDto } from './dto/find-one-response.dto';
 import { Request } from 'express';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 
-interface JwtPayload {
+export interface JwtPayload {
   userId: string;
   email: string;
   role: string;
