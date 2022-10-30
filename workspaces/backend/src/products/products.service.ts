@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductNotFoundException } from './exceptions/productNotFound.exception';
 import { Product, ProductDocument } from './schemas/products.schema';
 
 @Injectable()
@@ -24,7 +25,12 @@ export class ProductsService {
   }
 
   async findOne(id: string): Promise<Product> {
-    return await this.productModel.findById(id);
+    const product = await this.productModel.findById(id);
+    if (product) {
+      return product;
+    } else {
+      throw new ProductNotFoundException(id);
+    }
   }
 
   async update(
