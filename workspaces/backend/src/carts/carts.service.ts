@@ -1,10 +1,12 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { UpdateQuantityDto } from './dto/update-quantity-cart.dto';
+import { CartNotFoundException } from './exceptions/cartNotFound.exception';
+import { ProductNotFoundInCartException } from './exceptions/productNotFoundInCart.exception';
 import { Cart, CartDocument } from './schemas/cart.schema';
 
 @Injectable()
@@ -41,26 +43,10 @@ export class CartsService {
       if (cart) {
         return cart;
       } else {
-        this.logger.error(`Cart with id ${id} not found`);
-        throw new HttpException(
-          {
-            statusCode: HttpStatus.NOT_FOUND,
-            message: ['Cart not found'],
-            error: 'Not Found',
-          },
-          HttpStatus.NOT_FOUND,
-        );
+        throw new CartNotFoundException(id);
       }
     } catch (err) {
-      this.logger.error(err);
-      throw new HttpException(
-        {
-          statusCode: HttpStatus.NOT_FOUND,
-          message: ['Cart not found'],
-          error: 'Not Found',
-        },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new CartNotFoundException(id);
     }
   }
 
@@ -102,19 +88,7 @@ export class CartsService {
       }
       return await cart.save();
     } else {
-      this.logger.error(
-        `Product ${updateQuantityDto.productId} not found in cart ${id}`,
-      );
-      throw new HttpException(
-        {
-          statusCode: HttpStatus.NOT_FOUND,
-          message: [
-            `Product with id '${updateQuantityDto.productId}' not found in cart.`,
-          ],
-          error: 'Not Found',
-        },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new ProductNotFoundInCartException(updateQuantityDto.productId, id);
     }
   }
 
