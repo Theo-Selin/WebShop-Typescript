@@ -1,12 +1,29 @@
 import { Type } from 'class-transformer';
-import { IsEnum } from 'class-validator';
-import { Address } from '../../users/schemas/address.schema';
+import {
+  IsDefined,
+  IsEnum,
+  IsNotEmptyObject,
+  IsObject,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
+import { DeliveryAddressDto } from 'src/users/dto/delivery-address.dto';
 import { CartStatus } from '../schemas/cart.schema';
 
 export class UpdateCartDto {
-  @IsEnum(CartStatus)
+  @IsEnum(CartStatus, {
+    message: `status must be one of [${Object.values(CartStatus).map(
+      (v) => `'${v}'`,
+    )}]`,
+  })
+  @IsOptional()
   status: string;
 
-  @Type(() => Address)
-  deliveryAddress: Address;
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => DeliveryAddressDto)
+  deliveryAddress: DeliveryAddressDto;
 }
