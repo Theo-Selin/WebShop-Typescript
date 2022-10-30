@@ -1,6 +1,15 @@
 import { Type } from 'class-transformer';
-import { IsEmail, IsIn, IsOptional, IsString } from 'class-validator';
-import { Address } from '../schemas/address.schema';
+import {
+  IsDefined,
+  IsEmail,
+  IsIn,
+  IsNotEmptyObject,
+  IsObject,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { DeliveryAddressDto } from './delivery-address.dto';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -12,8 +21,12 @@ export class UpdateUserDto {
   email: string;
 
   @IsOptional()
-  @Type(() => Address)
-  deliveryAddress: Address;
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  @Type(() => DeliveryAddressDto)
+  deliveryAddress: DeliveryAddressDto;
 
   @IsOptional()
   @IsIn(['admin', 'customer'])
