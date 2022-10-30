@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { CartsService } from '../carts/carts.service';
 import { ConfigService } from '@nestjs/config';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
-import { EmailExistsException } from './exceptions/userEmailExists.exception';
+import { UserEmailExistsException } from './exceptions/userEmailExists.exception';
 import { UserNotFoundException } from './exceptions/userNotFound.exception';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class UsersService {
       this.logger.log(`New user created ${newUser.email} ${newUser.id}`);
       return newUser;
     } catch (err) {
-      throw new EmailExistsException();
+      throw new UserEmailExistsException();
     }
   }
 
