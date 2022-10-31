@@ -63,12 +63,15 @@ export class CartsService {
       p.productId === addToCartDto.productId ? product : p,
     );
 
-    cart.products = [
-      ...cart.products.filter(
-        ({ productId }) => productId.toString() !== addToCartDto.productId,
-      ),
-      product,
-    ];
+
+    // OLD WAY
+    //cart.products = [
+    //  ...cart.products.filter(
+    //    ({ productId }) => productId.toString() !== addToCartDto.productId,
+    //  ),
+    //  product,
+    //];
+    
     this.logger.log(`Product ${addToCartDto.productId} added to cart ${id}`);
 
     return await cart.save();
