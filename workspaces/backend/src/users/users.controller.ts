@@ -21,6 +21,7 @@ import { ResponseDto } from '../utils/response-dto.decorator';
 import { FindOneResponseDto } from './dto/find-one-response.dto';
 import { Request } from 'express';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 export interface JwtPayload {
   userId: string;
@@ -37,6 +38,18 @@ export class UsersController {
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.create(createUserDto);
+  }
+
+  @Post('me/change-password')
+  async changePassword(
+    @Body() changePasswordDto: ChangePasswordDto,
+    @Req() req: Request,
+  ) {
+    const { userId } = req.user as JwtPayload;
+    return await this.usersService.updatePassword(
+      userId.toString(),
+      changePasswordDto,
+    );
   }
 
   @Roles(Role.Admin)

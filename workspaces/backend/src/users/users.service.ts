@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,6 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 import { UserEmailExistsException } from './exceptions/userEmailExists.exception';
 import { UserNotFoundException } from './exceptions/userNotFound.exception';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -70,6 +71,27 @@ export class UsersService {
     });
     this.logger.log(`User: ${user.id} updated ${updateUserDto}`);
     return user;
+  }
+
+  async updatePassword(id: string, changePasswordDto: ChangePasswordDto) {
+    const user = await this.userModel.findById(id);
+    const validPassword = await bcrypt.compare(
+      changePasswordDto.currentPassword,
+      user.password,
+    );
+    if (validPassword) {
+      const hash = await bcrypt.hash(
+        changePasswordDto.newPassword,
+        parseInt(this.config.get('SALT_ROUNDS')),
+      );
+      user.password = hash;
+      return await user.save();
+    } else {
+      throw new HttpException(
+        'Incorrect current password',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async remove(id: string): Promise<User> {
