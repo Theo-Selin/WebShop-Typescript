@@ -36,7 +36,7 @@ export class User {
   role: AccountRole;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Cart.name })
-  @Transform(({ obj }) => obj._id.toString())
+  @Transform(({ obj }) => obj.activeCart.toString())
   activeCart: string;
 }
 

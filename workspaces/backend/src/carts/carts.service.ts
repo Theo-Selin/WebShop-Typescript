@@ -31,15 +31,16 @@ export class CartsService {
 
   async findOne(id: string): Promise<Cart> {
     try {
-      const cart = await this.cartModel.findById(id);
-      // .populate('user')
-      // .populate({
-      //   path: 'products',
-      //   populate: {
-      //     path: 'productId',
-      //     model: 'Product',
-      //   },
-      // });
+      const cart = await this.cartModel
+        .findById(id)
+        .populate('user')
+        .populate({
+          path: 'products',
+          populate: {
+            path: 'productId',
+            model: 'Product',
+          },
+        });
       if (cart) {
         return cart;
       } else {
@@ -58,12 +59,19 @@ export class CartsService {
 
     product.quantity += addToCartDto.quantity;
 
-    cart.products = [
-      ...cart.products.filter(
-        ({ productId }) => productId.toString() !== addToCartDto.productId,
-      ),
-      product,
-    ];
+    cart.products = cart.products.map((p) =>
+      p.productId === addToCartDto.productId ? product : p,
+    );
+
+
+    // OLD WAY
+    //cart.products = [
+    //  ...cart.products.filter(
+    //    ({ productId }) => productId.toString() !== addToCartDto.productId,
+    //  ),
+    //  product,
+    //];
+    
     this.logger.log(`Product ${addToCartDto.productId} added to cart ${id}`);
 
     return await cart.save();
