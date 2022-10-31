@@ -8,12 +8,14 @@ import {
   Delete,
   UseInterceptors,
 } from '@nestjs/common';
+import { ResponseDto } from 'src/utils/response-dto.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/role.enum';
 import MongooseClassSerializerInterceptor from '../utils/mongooseClassSerializer.interceptor';
 import { CartsService } from './carts.service';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
+import { FindOneResponseDto } from './dto/find-one-response.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { UpdateQuantityDto } from './dto/update-quantity-cart.dto';
 import { Cart } from './schemas/cart.schema';
@@ -42,7 +44,7 @@ export class CartsController {
     return await this.cartsService.findAll();
   }
 
-  @Roles(Role.Admin)
+  @ResponseDto(FindOneResponseDto)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.cartsService.findOne(id);

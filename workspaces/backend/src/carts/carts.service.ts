@@ -31,15 +31,16 @@ export class CartsService {
 
   async findOne(id: string): Promise<Cart> {
     try {
-      const cart = await this.cartModel.findById(id);
-      // .populate('user')
-      // .populate({
-      //   path: 'products',
-      //   populate: {
-      //     path: 'productId',
-      //     model: 'Product',
-      //   },
-      // });
+      const cart = await this.cartModel
+        .findById(id)
+        .populate('user')
+        .populate({
+          path: 'products',
+          populate: {
+            path: 'productId',
+            model: 'Product',
+          },
+        });
       if (cart) {
         return cart;
       } else {
@@ -57,6 +58,10 @@ export class CartsService {
     ) || { productId: addToCartDto.productId, quantity: 0 };
 
     product.quantity += addToCartDto.quantity;
+
+    cart.products = cart.products.map((p) =>
+      p.productId === addToCartDto.productId ? product : p,
+    );
 
     cart.products = [
       ...cart.products.filter(
