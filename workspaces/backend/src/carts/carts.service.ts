@@ -128,6 +128,15 @@ export class CartsService {
     }
   }
 
+  async emptyCart(id: string) {
+    const cart = await this.cartModel.findById(id);
+    if (!cart) {
+      throw new CartNotFoundException(id);
+    }
+    cart.products = [];
+    return await cart.save();
+  }
+
   async update(id: string, updateCartDto: UpdateCartDto): Promise<Cart> {
     return await this.cartModel.findByIdAndUpdate(id, updateCartDto, {
       returnDocument: 'after',
