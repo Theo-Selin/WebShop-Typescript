@@ -96,6 +96,7 @@ export class UsersService {
 
   async remove(id: string): Promise<User> {
     const user = await this.userModel.findByIdAndDelete(id);
+    await this.cartsService.remove(user.activeCart);
     return user;
   }
 }
