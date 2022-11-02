@@ -1,29 +1,36 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import Button from "../components/Button";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
-import { GlobalContext } from "../utils/providers/GlobalContext";
 import Currency from "react-currency-format";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import useUser from "../utils/hooks/useUser";
+import BaseLayout from "../components/BaseLayout";
+import CategoryLayout from "../components/CategoryLayout";
 
 const Checkout = () => {
-  const context = useContext(GlobalContext);
-  const items = context.userInfo?.activeCart.products;
   const router = useRouter();
+  const { user } = useUser();
+  const products = user?.activeCart.products;
+  console.log(user);
+
+  if (!user) {
+    router.push("/login");
+  }
 
   return (
     <div className="min-h-screen overflow-hidden">
       <Head>
         <title>Cart - WebShop</title>
-        <link rel="icon" href="/favicon.ico"></link>
+        <link rel="icon" href="/WebShopLogo.png"></link>
       </Head>
       <Header />
       <main className="mx-auto max-w-5xl pb-24">
         <div className="flex flex-col items-center px-5">
           <h1 className="mt-20 text-3xl font-semibold lg:text-4xl">
-            {items && items.length > 0
+            {products && products.length > 0
               ? "Review your cart"
               : "Your cart is empty"}
           </h1>
@@ -32,13 +39,13 @@ const Checkout = () => {
           {/* If cart.length is longer than 0 */}
           <Button title="Continue shopping" onClick={() => router.push("/")} />
         </div>
-        {items && items.length > 0 && (
+        {products && products.length > 0 && (
           <div className="mx-5 md:mx-8">
-            {items.map((product) => {
+            {products.map((product) => {
               return (
                 <CheckoutProduct
                   key={product.productId}
-                  items={items}
+                  items={products}
                   id={product.productId}
                 />
               );
@@ -120,6 +127,10 @@ const Checkout = () => {
       </main>
     </div>
   );
+};
+
+Checkout.getLayout = function getLayout(page: ReactElement) {
+  return <BaseLayout>{page}</BaseLayout>;
 };
 
 export default Checkout;

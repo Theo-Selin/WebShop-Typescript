@@ -21,7 +21,7 @@ const Landing = () => {
       </div>
 
       <div className="relative hidden h-[450px] w-[450px] transition-all duration-500 md:inline lg:h-[950px] lg:w-[550px]">
-        <Image src="/landing.png" layout="fill" objectFit="contain" />
+        <Image src="/landing.png" layout="fill" objectFit="contain" priority />
       </div>
     </section>
   );
