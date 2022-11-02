@@ -3,14 +3,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "../utils/fetchCategories";
 import { getCategoryFromPath } from "../utils/helpers";
+import useUser from "../utils/hooks/useUser";
 import Landing from "./Landing";
 
-type LayoutProps = {
+type CategoryLayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const CategoryLayout = ({ children }: CategoryLayoutProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -56,4 +58,4 @@ const Layout = ({ children }: LayoutProps) => {
   );
 };
 
-export default Layout;
+export default CategoryLayout;

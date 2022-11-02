@@ -1,8 +1,6 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
-import { GlobalProvider } from "../utils/providers/GlobalContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Layout from "../components/CategoryLayout";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 
@@ -21,7 +19,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalProvider>{getLayout(<Component {...pageProps} />)}</GlobalProvider>
+      {getLayout(<Component {...pageProps} />)}
     </QueryClientProvider>
   );
 }

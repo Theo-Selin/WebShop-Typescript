@@ -1,12 +1,23 @@
+import { useRouter } from "next/router";
 import { FormEventHandler, ReactElement, useState } from "react";
 import BaseLayout from "../components/BaseLayout";
+import { logIn } from "../utils/fetchUserInfo";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const router = useRouter();
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+    const token = await logIn({ email, password });
+    if (token) {
+      router.push("/");
+    } else {
+      setError("Email or password not correct");
+    }
   };
 
   return (
@@ -20,7 +31,10 @@ const Login = () => {
           type="email"
           name="email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => {
+            setError("");
+            return setEmail(event.target.value);
+          }}
           className="block rounded border border-gray-900 bg-gray-50 px-2.5 py-1 text-sm text-gray-900"
         />
         <label className="block">Password: </label>
@@ -28,9 +42,13 @@ const Login = () => {
           type="password"
           name="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => {
+            setError("");
+            return setPassword(event.target.value);
+          }}
           className="block rounded border border-gray-900 bg-gray-50 px-2.5 py-1 text-sm text-gray-900"
         />
+        {error && <p className="text-red-400">{error}</p>}
         <button
           type="submit"
           className="rounded bg-gradient-to-r from-pink-500 to-violet-500 px-2.5 py-1 text-white"
