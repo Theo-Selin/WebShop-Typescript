@@ -5,9 +5,9 @@ import {
   SearchIcon,
   ShoppingBagIcon,
   UserIcon,
-  PlusIcon,
 } from "@heroicons/react/outline";
 import useUser from "../utils/hooks/useUser";
+import AdminDropdown from "./AdminDropdown";
 
 const Header = () => {
   const { user } = useUser();
@@ -65,16 +65,7 @@ const Header = () => {
         )}
 
         {/* If user.role === admin show else hide */}
-        <Link href="/admin">
-          <div className="relative cursor-pointer">
-            {user && user.activeCart.products.length && (
-              <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
-                {user.activeCart.products.length}
-              </span>
-            )}
-            <PlusIcon className="headerIcon" />
-          </div>
-        </Link>
+        <AdminDropdown />
       </div>
     </header>
   );

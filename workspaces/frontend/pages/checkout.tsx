@@ -10,20 +10,20 @@ import { ChevronDownIcon } from "@heroicons/react/outline";
 
 const Checkout = () => {
   const context = useContext(GlobalContext);
-  const items = context.userInfo?.activeCart.products;
+  const products = context.userInfo?.activeCart.products;
   const router = useRouter();
 
   return (
     <div className="min-h-screen overflow-hidden">
       <Head>
         <title>Cart - WebShop</title>
-        <link rel="icon" href="/favicon.ico"></link>
+        <link rel="icon" href="/WebShopLogo.png"></link>
       </Head>
       <Header />
       <main className="mx-auto max-w-5xl pb-24">
         <div className="flex flex-col items-center px-5">
           <h1 className="mt-20 text-3xl font-semibold lg:text-4xl">
-            {items && items.length > 0
+            {products && products.length > 0
               ? "Review your cart"
               : "Your cart is empty"}
           </h1>
@@ -32,13 +32,13 @@ const Checkout = () => {
           {/* If cart.length is longer than 0 */}
           <Button title="Continue shopping" onClick={() => router.push("/")} />
         </div>
-        {items && items.length > 0 && (
+        {products && products.length > 0 && (
           <div className="mx-5 md:mx-8">
-            {items.map((product) => {
+            {products.map((product) => {
               return (
                 <CheckoutProduct
                   key={product.productId}
-                  items={items}
+                  items={products}
                   id={product.productId}
                 />
               );
