@@ -6,6 +6,7 @@ import {
   SearchIcon,
   ShoppingBagIcon,
   UserIcon,
+  PlusIcon,
 } from "@heroicons/react/outline";
 
 const Header = () => {
@@ -31,9 +32,12 @@ const Header = () => {
         <SearchIcon className="headerIcon" />
         <Link href="/checkout">
           <div className="relative cursor-pointer">
-            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
-              {user.userInfo?.activeCart.products.length}
-            </span>
+            {user.userInfo?.activeCart.products &&
+              user.userInfo?.activeCart.products.length > 0 && (
+                <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
+                  {user.userInfo?.activeCart.products.length}
+                </span>
+              )}
             <ShoppingBagIcon className="headerIcon" />
           </div>
         </Link>
@@ -42,7 +46,7 @@ const Header = () => {
         {token ? (
           <Image
             src="https://drivma.se/wp-content/uploads/2020/11/blank-profile-picture-973460_640.png"
-            alt=""
+            alt="profile"
             className="cursor-pointer rounded-full"
             width={34}
             height={34}
@@ -54,6 +58,19 @@ const Header = () => {
             // onClick={() => signIn()}
           />
         )}
+
+        {/* If user.role === admin show else hide */}
+        <Link href="/admin">
+          <div className="relative cursor-pointer">
+            {user.userInfo?.activeCart.products &&
+              user.userInfo?.activeCart.products.length > 0 && (
+                <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
+                  {user.userInfo?.activeCart.products.length}
+                </span>
+              )}
+            <PlusIcon className="headerIcon" />
+          </div>
+        </Link>
       </div>
     </header>
   );

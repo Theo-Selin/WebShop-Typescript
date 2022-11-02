@@ -17,12 +17,14 @@
     "framer-motion": "^6.5.1",
     "next": "12.3.1",
     "react": "18.2.0",
+    "react-currency-format": "^1.1.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
+    "@types/react-currency-format": "^1.0.0",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.12",
     "eslint": "8.26.0",
