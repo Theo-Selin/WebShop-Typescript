@@ -63,6 +63,11 @@ export class CartsController {
     return await this.cartsService.updateQuantity(id, updateQuantityDto);
   }
 
+  @Get(':id/empty')
+  async emptyCart(@Param('id') id: string) {
+    return await this.cartsService.emptyCart(id);
+  }
+
   @Roles(Role.Admin)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
