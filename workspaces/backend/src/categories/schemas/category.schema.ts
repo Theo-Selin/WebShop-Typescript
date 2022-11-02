@@ -11,6 +11,9 @@ export class Category {
 
   @Prop()
   name: string;
+
+  @Prop()
+  slug: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);
