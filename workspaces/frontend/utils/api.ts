@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 axios.defaults.baseURL = process.env.BACKEND_URL || "http://localhost:4000";
@@ -25,6 +26,13 @@ export const fetchUserInfo = async () => {
   });
 
   return response.data;
+};
+
+export const addToCart = async () => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
 };
 
 export const logIn = async (credentials: {

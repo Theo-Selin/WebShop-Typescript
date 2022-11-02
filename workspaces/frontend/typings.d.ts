@@ -6,6 +6,7 @@ interface GlobalContent {
 interface Category {
   _id?: string;
   name: string;
+  slug: string;
 }
 
 interface Product {
