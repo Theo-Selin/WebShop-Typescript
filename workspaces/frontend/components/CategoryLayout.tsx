@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "../utils/fetchCategories";
-import { getCategoryFromPath } from "../utils/helpers";
 import useUser from "../utils/hooks/useUser";
 import Landing from "./Landing";
 
@@ -33,7 +32,6 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
           <div>
             <div className="scrollbar-hide sticky top-0 z-50 flex overflow-scroll bg-[#232428] sm:justify-center">
               {categories.map((category) => {
-                const urlCategory = getCategoryFromPath(router.asPath);
                 return (
                   <div
                     key={category._id}
