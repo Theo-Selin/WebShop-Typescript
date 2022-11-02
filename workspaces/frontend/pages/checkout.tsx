@@ -1,17 +1,24 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import Button from "../components/Button";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
-import { GlobalContext } from "../utils/providers/GlobalContext";
 import Currency from "react-currency-format";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import useUser from "../utils/hooks/useUser";
+import BaseLayout from "../components/BaseLayout";
+import CategoryLayout from "../components/CategoryLayout";
 
 const Checkout = () => {
-  const context = useContext(GlobalContext);
-  const products = context.userInfo?.activeCart.products;
   const router = useRouter();
+  const { user } = useUser();
+  const products = user?.activeCart.products;
+  console.log(user);
+
+  if (!user) {
+    router.push("/login");
+  }
 
   return (
     <div className="min-h-screen overflow-hidden">
@@ -120,6 +127,10 @@ const Checkout = () => {
       </main>
     </div>
   );
+};
+
+Checkout.getLayout = function getLayout(page: ReactElement) {
+  return <BaseLayout>{page}</BaseLayout>;
 };
 
 export default Checkout;
