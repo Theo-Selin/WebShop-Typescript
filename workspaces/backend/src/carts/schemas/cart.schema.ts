@@ -33,6 +33,12 @@ export class Cart {
   @Prop({ default: CartStatus.Active })
   status: CartStatus;
 
+  @Prop({ default: 0 })
+  totalPrice: number;
+
+  @Prop({ default: 0 })
+  totalWeight: number;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   @Transform(({ obj }) => obj.user.toString())
   user: string;
