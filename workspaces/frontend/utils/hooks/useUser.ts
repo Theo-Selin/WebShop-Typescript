@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserInfo } from "../fetchUserInfo";
+import { fetchUserInfo } from "../api";
 
 const useUser = () => {
   const { data: user, ...rest } = useQuery({

@@ -3,8 +3,8 @@ import { ReactElement } from "react";
 import BaseLayout from "../../components/BaseLayout";
 import CategoryLayout from "../../components/CategoryLayout";
 import Product from "../../components/Product";
-import { fetchCategories } from "../../utils/fetchCategories";
-import { fetchProducts } from "../../utils/fetchProducts";
+import { fetchCategories } from "../../utils/api";
+import { fetchProducts } from "../../utils/api";
 
 type CategoryProps = {
   products: Product[];

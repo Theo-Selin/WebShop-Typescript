@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { fetchCategories } from "../utils/fetchCategories";
-import useUser from "../utils/hooks/useUser";
+import { fetchCategories } from "../utils/api";
 import Landing from "./Landing";
 
 type CategoryLayoutProps = {

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { FormEventHandler, ReactElement, useState } from "react";
 import BaseLayout from "../components/BaseLayout";
-import { logIn } from "../utils/fetchUserInfo";
+import { logIn } from "../utils/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");

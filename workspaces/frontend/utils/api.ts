@@ -2,6 +2,16 @@ import axios from "axios";
 
 axios.defaults.baseURL = process.env.BACKEND_URL || "http://localhost:4000";
 
+export const fetchCategories = async () => {
+  const response = await axios.get<Category[]>("/categories");
+  return response.data;
+};
+
+export const fetchProducts = async () => {
+  const response = await axios.get<Product[]>("/products");
+  return response.data;
+};
+
 export const fetchUserInfo = async () => {
   const token = localStorage.getItem("webshop-jwt");
   if (!token) {
@@ -17,12 +27,10 @@ export const fetchUserInfo = async () => {
   return response.data;
 };
 
-type Credentials = {
+export const logIn = async (credentials: {
   email: string;
   password: string;
-};
-
-export const logIn = async (credentials: Credentials) => {
+}) => {
   try {
     const response = await axios.post<{ access_token: string }>(
       `/auth/login`,
@@ -32,6 +40,6 @@ export const logIn = async (credentials: Credentials) => {
     localStorage.setItem("webshop-jwt", token);
     return token;
   } catch (error) {
-    return undefined;
+    return null;
   }
 };
