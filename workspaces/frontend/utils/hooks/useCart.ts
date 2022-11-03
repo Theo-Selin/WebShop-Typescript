@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addProduct as apiAddProduct,
   updateProductQuantity as apiUpdateProductQuantity,
+  emptyCart as apiEmptyCart,
   fetchCart,
 } from "../api";
 
@@ -26,7 +27,12 @@ const useCart = () => {
       apiUpdateProductQuantity(data),
     onSuccess: () => queryClient.invalidateQueries(["cart"]),
   });
-  return { cart, addProduct, updateProductQuantity, ...rest };
+
+  const emptyCart = useMutation({
+    mutationFn: () => apiEmptyCart(),
+    onSuccess: () => queryClient.invalidateQueries(["cart"]),
+  });
+  return { cart, addProduct, updateProductQuantity, emptyCart, ...rest };
 };
 
 export default useCart;
