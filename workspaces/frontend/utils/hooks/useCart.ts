@@ -16,8 +16,7 @@ const useCart = () => {
   const addProduct = useMutation({
     mutationFn: (data: { productId: string; quantity: number }) =>
       apiAddProduct(data),
-    onSuccess: (data, variables, context) => {
-      console.log(data, variables, context);
+    onSuccess: () => {
       return queryClient.invalidateQueries(["cart"]);
     },
   });
