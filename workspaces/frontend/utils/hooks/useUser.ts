@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserInfo } from "../api";
+import { fetchUser } from "../api";
 
 const useUser = () => {
   const { data: user, ...rest } = useQuery({
     queryKey: ["user"],
-    queryFn: fetchUserInfo,
+    queryFn: fetchUser,
   });
   return { ...rest, user };
 };
