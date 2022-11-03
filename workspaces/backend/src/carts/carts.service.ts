@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductNotFoundException } from 'src/products/exceptions/productNotFound.exception';
+import { User, UserDocument } from 'src/users/schemas/user.schema';
 import { Product, ProductDocument } from '../products/schemas/products.schema';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
@@ -18,6 +19,8 @@ export class CartsService {
     private readonly cartModel: Model<CartDocument>,
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
+    @InjectModel(User.name)
+    private readonly userModel: Model<UserDocument>,
   ) {}
 
   private readonly logger = new Logger(CartsService.name);
@@ -55,7 +58,14 @@ export class CartsService {
     }
   }
 
-  async addToCart(id: string, addToCartDto: AddToCartDto): Promise<Cart> {
+  async findActiveCart(userId: string) {
+    const user = await this.userModel.findById(userId);
+    return this.findOne(user.activeCart);
+  }
+
+  async addToCart(userId: string, addToCartDto: AddToCartDto): Promise<Cart> {
+    const user = await this.userModel.findById(userId);
+    const id = user.activeCart;
     const cart = await this.cartModel.findById(id);
     if (!cart) {
       throw new CartNotFoundException(id);
