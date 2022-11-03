@@ -60,6 +60,26 @@ export const createProduct = async (product: CreateProductParams) => {
   return response.data;
 };
 
+export type UpdateProductParams = Partial<CreateProductParams>;
+
+export const updateProduct = async (
+  id: string,
+  product: UpdateProductParams
+) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.patch(`/products/${id}`, product, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const fetchUserInfo = async () => {
   const token = localStorage.getItem("webshop-jwt");
   if (!token) {
