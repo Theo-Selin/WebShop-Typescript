@@ -22,6 +22,7 @@ import { FindOneResponseDto } from './dto/find-one-response.dto';
 import { Request } from 'express';
 import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { CheckoutDto } from './dto/checkout.dto';
 
 export interface JwtPayload {
   userId: string;
@@ -50,6 +51,13 @@ export class UsersController {
       userId.toString(),
       changePasswordDto,
     );
+  }
+
+  @Post('checkout')
+  async checkout(@Req() req: Request, @Body() checkoutDto: CheckoutDto) {
+    const { userId } = req.user as JwtPayload;
+    console.log(userId);
+    return await this.usersService.checkout(userId, checkoutDto);
   }
 
   @Roles(Role.Admin)
