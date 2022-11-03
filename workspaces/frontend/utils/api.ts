@@ -13,6 +13,30 @@ export const fetchProducts = async () => {
   return response.data;
 };
 
+export type CreateProductParams = {
+  name: string;
+  description: string;
+  weight: number;
+  price: number;
+  manufacturer: string;
+  images: string[];
+};
+
+export const createProduct = async (product: CreateProductParams) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.post("/products", product, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const fetchUserInfo = async () => {
   const token = localStorage.getItem("webshop-jwt");
   if (!token) {
