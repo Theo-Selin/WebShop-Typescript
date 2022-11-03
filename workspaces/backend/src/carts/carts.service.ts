@@ -46,6 +46,10 @@ export class CartsService {
           populate: {
             path: 'productId',
             model: 'Product',
+            populate: {
+              path: 'category',
+              model: 'Category',
+            },
           },
         });
       if (cart) {
