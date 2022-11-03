@@ -60,6 +60,23 @@ export const addProduct = async (data: {
   return response.data;
 };
 
+export const updateProductQuantity = async (data: {
+  productId: string;
+  quantity: number;
+}) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.patch(`/carts/update-quantity`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 export const logIn = async (credentials: {
   email: string;
   password: string;
