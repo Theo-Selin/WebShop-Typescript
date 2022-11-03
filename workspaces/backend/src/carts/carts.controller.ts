@@ -75,7 +75,7 @@ export class CartsController {
     return await this.cartsService.updateQuantity(userId, updateQuantityDto);
   }
 
-  @Get('empty')
+  @Patch('empty')
   async emptyCart(@Req() req: Request) {
     const { userId } = req.user as JwtPayload;
     return await this.cartsService.emptyCart(userId);
