@@ -7,6 +7,25 @@ export const fetchCategories = async () => {
   return response.data;
 };
 
+export type CreateCategoryParams = {
+  name: string;
+};
+
+export const createCategory = async (category: CreateCategoryParams) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.post<Category>("/categories", category, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const fetchProducts = async () => {
   const response = await axios.get<Product[]>("/products");
   return response.data;
