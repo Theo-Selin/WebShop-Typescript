@@ -11,6 +11,8 @@ import { UpdateLoggedInUserDto } from './dto/update-logged-in-user.dto';
 import { UserEmailExistsException } from './exceptions/userEmailExists.exception';
 import { UserNotFoundException } from './exceptions/userNotFound.exception';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { CartStatus } from '../carts/schemas/cart.schema';
+import { CheckoutDto } from './dto/checkout.dto';
 
 @Injectable()
 export class UsersService {
@@ -92,6 +94,22 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  async checkout(id: string, checkoutDto: CheckoutDto): Promise<User> {
+    const user = await this.userModel.findById(id);
+    await this.cartsService.update(user.activeCart, {
+      status: CartStatus.Registered,
+      deliveryAddress: checkoutDto
+        ? checkoutDto.deliveryAddress
+        : user.deliveryAddress,
+    });
+    const newCart = await this.cartsService.create({
+      user: user._id.toString(),
+    });
+    user.activeCart = newCart._id;
+    await user.save();
+    return user;
   }
 
   async remove(id: string): Promise<User> {
