@@ -68,10 +68,11 @@ export class CartsController {
 
   @Patch('update-quantity')
   async updateQuantity(
-    @Param('id') id: string,
+    @Req() req: Request,
     @Body() updateQuantityDto: UpdateQuantityDto,
   ) {
-    return await this.cartsService.updateQuantity(id, updateQuantityDto);
+    const { userId } = req.user as JwtPayload;
+    return await this.cartsService.updateQuantity(userId, updateQuantityDto);
   }
 
   @Get(':id/empty')

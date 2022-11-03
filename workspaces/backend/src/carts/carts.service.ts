@@ -116,10 +116,11 @@ export class CartsService {
   }
 
   async updateQuantity(
-    id: string,
+    userId: string,
     updateQuantityDto: UpdateQuantityDto,
   ): Promise<Cart> {
-    const cart = await this.cartModel.findById(id);
+    const user = await this.userModel.findById(userId);
+    const cart = await this.cartModel.findById(user.activeCart);
     const productIndex = cart.products.findIndex(
       ({ productId }) => productId.toString() === updateQuantityDto.productId,
     );
