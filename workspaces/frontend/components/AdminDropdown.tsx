@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon, PlusIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 import React from "react";
 
 const AdminDropdown = () => {
@@ -27,17 +28,18 @@ const AdminDropdown = () => {
             <div className="">
               <Menu.Item>
                 {({ active }) => (
-                  <a
-                    href="/new_product"
-                    className={`${
-                      active
-                        ? "bg-gradient-to-r from-violet-600 to-pink-600 text-white"
-                        : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    <PlusIcon className="mx-4 h-4 w-4" />
-                    New Product
-                  </a>
+                  <Link href="/new_product">
+                    <a
+                      className={`${
+                        active
+                          ? "bg-gradient-to-r from-violet-600 to-pink-600 text-white"
+                          : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      <PlusIcon className="mx-4 h-4 w-4" />
+                      New Product
+                    </a>
+                  </Link>
                 )}
               </Menu.Item>
             </div>

@@ -35,12 +35,12 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
                   <div
                     key={category._id}
                     className={` whitespace-nowrap py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base ${
-                      router.asPath === `/categories/${category.name}`
+                      router.asPath === `/categories/${category.slug}`
                         ? "borderGradient bg-[#35383C] text-white"
                         : "border-b-2 border-[#35383C] text-white"
                     }`}
                   >
-                    <Link scroll={false} href={`/categories/${category.name}`}>
+                    <Link scroll={false} href={`/categories/${category.slug}`}>
                       {category.name}
                     </Link>
                   </div>
