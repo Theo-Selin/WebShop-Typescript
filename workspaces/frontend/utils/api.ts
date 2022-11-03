@@ -1,6 +1,72 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 axios.defaults.baseURL = process.env.BACKEND_URL || "http://localhost:4000";
+
+type HttpVerbWithoutBody = "get" | "delete" | "head" | "options";
+type HttpVerbWithBody = "post" | "put" | "patch";
+
+type ApiCallOverloads = {
+  <ReturnType>(
+    verb: HttpVerbWithoutBody,
+    url: string,
+    config?: AxiosRequestConfig
+  ): ReturnType;
+  <ReturnType, InputType = any>(
+    verb: HttpVerbWithBody,
+    url: string,
+    body?: InputType,
+    config?: AxiosRequestConfig
+  ): ReturnType;
+};
+
+const apiCall: ApiCallOverloads = async <ReturnType, InputType>(
+  verb: HttpVerbWithoutBody | HttpVerbWithBody,
+  url: string,
+  bodyOrConfig?: InputType | AxiosRequestConfig,
+  config?: AxiosRequestConfig
+) => {
+  if (
+    verb === "get" ||
+    verb === "delete" ||
+    verb === "head" ||
+    verb === "options"
+  ) {
+    const response = await axios[verb]<ReturnType>(url, config);
+    return response.data;
+  } else {
+    const response = await axios[verb]<ReturnType>(url, bodyOrConfig, config);
+    return response.data;
+  }
+};
+
+const apiCallAuth: ApiCallOverloads = async <ReturnType, InputType>(
+  verb: HttpVerbWithoutBody | HttpVerbWithBody,
+  url: string,
+  bodyOrConfig?: InputType | AxiosRequestConfig,
+  config?: AxiosRequestConfig
+) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+  console.log(verb);
+  const configWithAuth = {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  if (
+    verb === "get" ||
+    verb === "delete" ||
+    verb === "head" ||
+    verb === "options"
+  ) {
+    return apiCall(verb, url, configWithAuth);
+  } else {
+    return apiCall(verb, url, bodyOrConfig, configWithAuth);
+  }
+};
 
 export const fetchCategories = async () => {
   const response = await axios.get<Category[]>("/categories");
