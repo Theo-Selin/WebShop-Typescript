@@ -63,9 +63,12 @@ export class CartsService {
     return this.findOne(user.activeCart);
   }
 
-  async addToCart(userId: string, addToCartDto: AddToCartDto): Promise<Cart> {
+  async addToActiveCart(userId: string, addToCartDto: AddToCartDto) {
     const user = await this.userModel.findById(userId);
-    const id = user.activeCart;
+    return this.addToCart(user.activeCart, addToCartDto);
+  }
+
+  async addToCart(id: string, addToCartDto: AddToCartDto): Promise<Cart> {
     const cart = await this.cartModel.findById(id);
     if (!cart) {
       throw new CartNotFoundException(id);
@@ -115,12 +118,19 @@ export class CartsService {
     return await cart.save();
   }
 
-  async updateQuantity(
+  async updateActiveQuantity(
     userId: string,
     updateQuantityDto: UpdateQuantityDto,
-  ): Promise<Cart> {
+  ) {
     const user = await this.userModel.findById(userId);
-    const cart = await this.cartModel.findById(user.activeCart);
+    return this.updateQuantity(user.activeCart, updateQuantityDto);
+  }
+
+  async updateQuantity(
+    id: string,
+    updateQuantityDto: UpdateQuantityDto,
+  ): Promise<Cart> {
+    const cart = await this.cartModel.findById(id);
     const productIndex = cart.products.findIndex(
       ({ productId }) => productId.toString() === updateQuantityDto.productId,
     );
@@ -135,18 +145,19 @@ export class CartsService {
       }
       return await cart.save();
     } else {
-      throw new ProductNotFoundInCartException(
-        updateQuantityDto.productId,
-        user.activeCart,
-      );
+      throw new ProductNotFoundInCartException(updateQuantityDto.productId, id);
     }
   }
 
-  async emptyCart(userId: string) {
+  async emptyActiveCart(userId: string) {
     const user = await this.userModel.findById(userId);
-    const cart = await this.cartModel.findById(user.activeCart);
+    return this.emptyCart(user.activeCart);
+  }
+
+  async emptyCart(id: string) {
+    const cart = await this.cartModel.findById(id);
     if (!cart) {
-      throw new CartNotFoundException(user.activeCart);
+      throw new CartNotFoundException(id);
     }
     cart.products = [];
     return await cart.save();

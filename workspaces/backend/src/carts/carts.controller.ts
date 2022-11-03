@@ -54,31 +54,59 @@ export class CartsController {
     return await this.cartsService.findActiveCart(userId);
   }
 
+  @Roles(Role.Admin)
   @ResponseDto(FindOneResponseDto)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.cartsService.findOne(id);
   }
 
-  @Patch('add-product')
-  async addToCart(@Req() req: Request, @Body() addToCartDto: AddToCartDto) {
+  @Patch('active/add-product')
+  async addToActiveCart(
+    @Req() req: Request,
+    @Body() addToCartDto: AddToCartDto,
+  ) {
     const { userId } = req.user as JwtPayload;
-    return await this.cartsService.addToCart(userId, addToCartDto);
+    return await this.cartsService.addToActiveCart(userId, addToCartDto);
   }
 
-  @Patch('update-quantity')
-  async updateQuantity(
+  @Patch('active/update-quantity')
+  async updateActiveQuantity(
     @Req() req: Request,
     @Body() updateQuantityDto: UpdateQuantityDto,
   ) {
     const { userId } = req.user as JwtPayload;
-    return await this.cartsService.updateQuantity(userId, updateQuantityDto);
+    return await this.cartsService.updateActiveQuantity(
+      userId,
+      updateQuantityDto,
+    );
   }
 
-  @Patch('empty')
-  async emptyCart(@Req() req: Request) {
+  @Patch('active/empty')
+  async emptyActiveCart(@Req() req: Request) {
     const { userId } = req.user as JwtPayload;
-    return await this.cartsService.emptyCart(userId);
+    return await this.cartsService.emptyActiveCart(userId);
+  }
+
+  @Roles(Role.Admin)
+  @Patch(':id/add-product')
+  async addToCart(@Param('id') id: string, @Body() addToCartDto: AddToCartDto) {
+    return await this.cartsService.addToCart(id, addToCartDto);
+  }
+
+  @Roles(Role.Admin)
+  @Patch(':id/update-quantity')
+  async updateQuantity(
+    @Param('id') id: string,
+    @Body() updateQuantityDto: UpdateQuantityDto,
+  ) {
+    return await this.cartsService.updateQuantity(id, updateQuantityDto);
+  }
+
+  @Roles(Role.Admin)
+  @Patch(':id/empty')
+  async emptyCart(@Param('id') id: string) {
+    return await this.cartsService.emptyCart(id);
   }
 
   @Roles(Role.Admin)
