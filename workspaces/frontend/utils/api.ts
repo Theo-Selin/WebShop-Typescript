@@ -52,7 +52,7 @@ export const addProduct = async (data: {
     return null;
   }
 
-  const response = await axios.patch(`/carts/add-product`, data, {
+  const response = await axios.patch(`/carts/active/add-product`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -69,7 +69,7 @@ export const updateProductQuantity = async (data: {
     return null;
   }
 
-  const response = await axios.patch(`/carts/update-quantity`, data, {
+  const response = await axios.patch(`/carts/active/update-quantity`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -84,7 +84,7 @@ export const emptyCart = async () => {
   }
 
   const response = await axios.patch(
-    `/carts/empty`,
+    `/carts/active/empty`,
     {},
     {
       headers: {
