@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 axios.defaults.baseURL = process.env.BACKEND_URL || "http://localhost:4000";
@@ -10,6 +9,11 @@ export const fetchCategories = async () => {
 
 export const fetchProducts = async () => {
   const response = await axios.get<Product[]>("/products");
+  return response.data;
+};
+
+export const fetchProduct = async (productId: string) => {
+  const response = await axios.get<Product>(`/products/${productId}`);
   return response.data;
 };
 
