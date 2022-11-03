@@ -12,12 +12,9 @@ type CategoryProps = {
 
 const CategoryPage = ({ products }: CategoryProps) => {
   return (
-    <div className="mx-auto flex max-w-fit pt-10 pb-24 sm:px-4">
+    <div className="tabPanel mx-auto max-w-fit pt-10 pb-24 sm:px-4">
       {products.map((product) => (
-        <div
-          key={product._id}
-          className="grid grid-cols-1 gap-8 overflow-auto sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
-        >
+        <div key={product._id}>
           <Product product={product} />
         </div>
       ))}

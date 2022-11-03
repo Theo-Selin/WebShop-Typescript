@@ -30,20 +30,12 @@ const Checkout = () => {
           {products.length > 0 ? "Review your cart" : "Your cart is empty"}
         </h1>
         <p className="my-4">Free delivery and returns</p>
-
-        {/* If cart.length is longer than 0 */}
         <Button title="Continue shopping" onClick={() => router.push("/")} />
       </div>
-      {products.length && (
+      {products && products.length > 0 && (
         <div className="mx-5 md:mx-8">
           {products.map((product) => {
-            return (
-              <CheckoutProduct
-                key={product.productId}
-                items={products}
-                id={product.productId}
-              />
-            );
+            return <CheckoutProduct key={product.productId} />;
           })}
 
           <div className="my-12 mt-6 ml-auto max-w-3xl">
@@ -67,7 +59,7 @@ const Checkout = () => {
                       <ChevronDownIcon className="h-6 w-6" />
                     </p>
                   </div>
-                  <p>$ -</p>
+                  <p></p>
                 </div>
               </div>
               <div className="flex justify-between pt-4 text-xl font-semibold">
@@ -88,7 +80,7 @@ const Checkout = () => {
                   <Button title="Checkout" />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
-                    it be your address or contact information, unless it&apos;s
+                    it be your address or contact information, unless it's
                     valuable information that could generate us more money in
                     the end
                   </p>
@@ -107,7 +99,7 @@ const Checkout = () => {
                   />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
-                    it be your address or contact information, unless it&apos;s
+                    it be your address or contact information, unless it's
                     valuable information that could generate us more money in
                     the end
                   </p>
