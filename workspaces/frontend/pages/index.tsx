@@ -2,15 +2,11 @@ import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import BaseLayout from "../components/BaseLayout";
 import CategoryLayout from "../components/CategoryLayout";
-import useCart from "../utils/hooks/useCart";
 import useUser from "../utils/hooks/useUser";
 
 const Home = () => {
   const router = useRouter();
   const { user, isError } = useUser();
-  const { cart } = useCart();
-
-  console.log(cart);
 
   if (isError) {
     router.push("/login");

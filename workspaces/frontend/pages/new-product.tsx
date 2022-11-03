@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import Header from "../components/Header";
 import TextareaAutosize from "react-textarea-autosize";
 
-const new_product = () => {
+const NewProduct = () => {
   const textAreaRef = useRef<null | any>(null);
 
   return (
@@ -137,4 +137,4 @@ const new_product = () => {
   );
 };
 
-export default new_product;
+export default NewProduct;
