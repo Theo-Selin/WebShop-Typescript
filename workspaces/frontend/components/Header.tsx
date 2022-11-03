@@ -13,8 +13,6 @@ const Header = () => {
   const { user } = useUser();
   const products = user?.activeCart.products;
 
-  const token = false;
-
   return (
     <header className="fixed top-0 z-30 flex w-full items-center justify-between p-4">
       <div className="flex items-center justify-center md:w-1/5">
@@ -49,16 +47,15 @@ const Header = () => {
         </Link>
 
         {/* Change icon depending if the user is logged in or not */}
-        {token ? (
-          <Image
-            src="https://drivma.se/wp-content/uploads/2020/11/blank-profile-picture-973460_640.png"
-            alt="profile"
-            className="cursor-pointer rounded-full"
-            width={34}
-            height={34}
-            // onClick={() => signOut()}
-          />
-        ) : (
+        {user ? // <Image
+        //   src="https://drivma.se/wp-content/uploads/2020/11/blank-profile-picture-973460_640.png"
+        //   alt="profile"
+        //   className="cursor-pointer rounded-full"
+        //   width={34}
+        //   height={34}
+        //   // onClick={() => signOut()}
+        // />
+        null : (
           <Link href="/login">
             <UserIcon
               className="headerIcon"
@@ -68,7 +65,7 @@ const Header = () => {
         )}
 
         {/* If user.role === admin show else hide */}
-        <AdminDropdown />
+        {user && user.role === "admin" && <AdminDropdown />}
       </div>
     </header>
   );

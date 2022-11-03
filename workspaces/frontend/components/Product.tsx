@@ -10,9 +10,8 @@ interface Props {
 }
 
 const Product = ({ product }: Props) => {
-  const { cart, addProduct } = useCart();
+  const { addProduct } = useCart();
 
-  // TODO //
   const addItemToCart = (productId: string) => {
     addProduct.mutate(
       { productId, quantity: 1 },
