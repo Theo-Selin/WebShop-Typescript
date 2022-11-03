@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type UserDocument = Address & Document;
+export type AddressDocument = Address & Document;
 
 @Schema()
 export class Address {
@@ -18,4 +18,4 @@ export class Address {
   country: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Address);
+export const AddressSchema = SchemaFactory.createForClass(Address);

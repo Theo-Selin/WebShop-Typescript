@@ -3,18 +3,28 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
+import useCart from "../utils/hooks/useCart";
 
 interface Props {
   product: Product;
 }
 
 const Product = ({ product }: Props) => {
+  const { cart, addProduct } = useCart();
+
   // TODO //
-  const addItemToCart = () => {
-    toast.success(`${product.name} added to cart`, {
-      position: "top-center",
-      className: "text-sm",
-    });
+  const addItemToCart = (productId: string) => {
+    addProduct.mutate(
+      { productId, quantity: 1 },
+      {
+        onSuccess: () => {
+          toast.success(`${product.name} added to cart`, {
+            position: "top-center",
+            className: "text-sm",
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -29,7 +39,10 @@ const Product = ({ product }: Props) => {
           <p className="text-pink-600">{product.price}:-</p>
         </div>
 
-        <div className="addToCartBtn" onClick={addItemToCart}>
+        <div
+          className="addToCartBtn"
+          onClick={() => product._id && addItemToCart(product._id)}
+        >
           <ShoppingCartIcon className="h-6 w-6 text-gray-200" />
         </div>
       </div>

@@ -28,11 +28,71 @@ export const fetchUserInfo = async () => {
   return response.data;
 };
 
-export const addToCart = async () => {
+export const fetchCart = async () => {
   const token = localStorage.getItem("webshop-jwt");
   if (!token) {
     return null;
   }
+
+  const response = await axios.get<Cart>(`/carts/active`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const addProduct = async (data: {
+  productId: string;
+  quantity: number;
+}) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.patch(`/carts/active/add-product`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const updateProductQuantity = async (data: {
+  productId: string;
+  quantity: number;
+}) => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.patch(`/carts/active/update-quantity`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const emptyCart = async () => {
+  const token = localStorage.getItem("webshop-jwt");
+  if (!token) {
+    return null;
+  }
+
+  const response = await axios.patch(
+    `/carts/active/empty`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 export const logIn = async (credentials: {
