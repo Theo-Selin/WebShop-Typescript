@@ -135,14 +135,18 @@ export class CartsService {
       }
       return await cart.save();
     } else {
-      throw new ProductNotFoundInCartException(updateQuantityDto.productId, id);
+      throw new ProductNotFoundInCartException(
+        updateQuantityDto.productId,
+        user.activeCart,
+      );
     }
   }
 
-  async emptyCart(id: string) {
-    const cart = await this.cartModel.findById(id);
+  async emptyCart(userId: string) {
+    const user = await this.userModel.findById(userId);
+    const cart = await this.cartModel.findById(user.activeCart);
     if (!cart) {
-      throw new CartNotFoundException(id);
+      throw new CartNotFoundException(user.activeCart);
     }
     cart.products = [];
     return await cart.save();
