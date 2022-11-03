@@ -4,12 +4,8 @@ import Currency from "react-currency-format";
 import toast from "react-hot-toast";
 
 // Need a way to access product details from CartItem
-interface Props {
-  items: CartItem[];
-  id: string;
-}
 
-const CheckoutProduct = ({ id, items }: Props) => {
+const CheckoutProduct = () => {
   const removeItemFromCart = () => {
     toast.error(`item removed from cart`, {
       position: "top-center",
@@ -28,7 +24,7 @@ const CheckoutProduct = ({ id, items }: Props) => {
           <div className="flex flex-col gap-x-8 text-xl lg:flex-row lg:text-2xl">
             <h4 className="font-semibold lg:w-96">Item name</h4>
             <p className="flex items-end gap-x-1 font-semibold">
-              Items quantity <ChevronDownIcon />
+              item quantity <ChevronDownIcon />
             </p>
           </div>
           <p className="flex cursor-pointer items-end text-blue-500 hover:underline">

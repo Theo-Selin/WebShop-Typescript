@@ -11,6 +11,7 @@ import AdminDropdown from "./AdminDropdown";
 
 const Header = () => {
   const { user } = useUser();
+  const products = user?.activeCart.products;
 
   const token = false;
 
@@ -38,9 +39,11 @@ const Header = () => {
         <SearchIcon className="headerIcon" />
         <Link href="/checkout">
           <div className="relative cursor-pointer">
-            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
-              {user && user.activeCart.products.length}
-            </span>
+            {products && products.length > 0 && (
+              <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-violet-900 to-pink-400 text-[10px] text-white">
+                {products && products.length}
+              </span>
+            )}
             <ShoppingBagIcon className="headerIcon" />
           </div>
         </Link>

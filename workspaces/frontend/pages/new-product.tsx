@@ -16,7 +16,7 @@ const NewProduct = () => {
       <Header />
       <main className="my-24">
         <div className="flex items-center justify-center p-12">
-          <div className="mx-auto w-full max-w-[550px] bg-white">
+          <div className="mx-auto w-full max-w-[550px] bg-white p-10 shadow-lg ring-1 ring-black ring-opacity-5">
             <form id="productForm" className="py-6 px-9" method="POST">
               <div className="mb-5">
                 <label className="mb-3 block text-base font-medium text-[#07074D]">

@@ -28,18 +28,16 @@ const AdminDropdown = () => {
             <div className="">
               <Menu.Item>
                 {({ active }) => (
-                  <Link href="/new_product">
-                    <a
-                      className={`${
-                        active
-                          ? "bg-gradient-to-r from-violet-600 to-pink-600 text-white"
-                          : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <PlusIcon className="mx-4 h-4 w-4" />
-                      New Product
-                    </a>
-                  </Link>
+                  <div
+                    className={`${
+                      active
+                        ? "bg-gradient-to-r from-violet-600 to-pink-600 text-white"
+                        : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <PlusIcon className="mx-4 h-4 w-4" />
+                    <Link href="/new-product">New Product</Link>
+                  </div>
                 )}
               </Menu.Item>
             </div>
