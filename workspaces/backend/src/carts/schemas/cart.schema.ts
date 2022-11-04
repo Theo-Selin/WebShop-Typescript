@@ -14,6 +14,11 @@ export enum CartStatus {
   Delivered = 'delivered',
 }
 
+export enum DeliveryPlan {
+  Free = 0,
+  Shipping = 59,
+}
+
 @Schema({ timestamps: true })
 export class Cart {
   @Transform(({ obj }) => obj._id.toString())
@@ -38,6 +43,9 @@ export class Cart {
 
   @Prop({ default: 0 })
   totalWeight: number;
+
+  @Prop({ default: DeliveryPlan.Free })
+  deliveryCost: DeliveryPlan;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   @Transform(({ obj }) => obj.user.toString())
