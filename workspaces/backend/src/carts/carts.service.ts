@@ -155,6 +155,12 @@ export class CartsService {
       throw new CartNotFoundException(id);
     }
     cart.products = [];
+
+    const productsInCart = await this.productModel.find({
+      _id: { $in: cart.products.map((product) => product.productId) },
+    });
+
+    setCartPriceAndWeight(cart, productsInCart);
     return await cart.save();
   }
 

@@ -2,7 +2,7 @@ import { Product } from 'src/products/schemas/products.schema';
 import { Cart, DeliveryPlan } from './schemas/cart.schema';
 
 const calculateShippingCost = (totalPrice) => {
-  if (totalPrice >= 1000) {
+  if (totalPrice >= 1000 || totalPrice === 0) {
     return DeliveryPlan.Free;
   }
   return DeliveryPlan.Shipping;
