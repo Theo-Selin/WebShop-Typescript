@@ -152,9 +152,13 @@ export class CartsService {
   }
 
   async update(id: string, updateCartDto: UpdateCartDto): Promise<Cart> {
-    return await this.cartModel.findByIdAndUpdate(id, updateCartDto, {
+    const cart = await this.cartModel.findByIdAndUpdate(id, updateCartDto, {
       returnDocument: 'after',
     });
+    if (!cart) {
+      throw new CartNotFoundException(id);
+    }
+    return cart;
   }
 
   async remove(id: string): Promise<Cart> {
