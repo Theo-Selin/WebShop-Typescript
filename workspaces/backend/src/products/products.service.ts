@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductNotFoundException } from './exceptions/productNotFound.exception';
@@ -20,8 +20,16 @@ export class ProductsService {
     return newProduct;
   }
 
-  async findAll(): Promise<Product[]> {
-    return await this.productModel.find().populate('category');
+  async findAll(searchQuery?: string): Promise<Product[]> {
+    const filter: FilterQuery<ProductDocument> = {};
+    if (searchQuery) {
+      filter.$text = { $search: searchQuery };
+    }
+    console.log(filter.$text);
+    return await this.productModel
+      .find(filter)
+      .populate('category')
+      .sort({ name: 1 });
   }
 
   async findOne(id: string): Promise<Product> {

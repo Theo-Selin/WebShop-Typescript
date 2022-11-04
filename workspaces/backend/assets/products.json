@@ -22,5 +22,21 @@
     "price": 3,
     "manufaturer": "product 3",
     "images": ["image 1", "image 2"]
+  },
+  {
+    "name": "Beer",
+    "description": "A cooling, smooth experience",
+    "weight": 0.5,
+    "price": 39,
+    "manufaturer": "Theo brewery",
+    "images": ["beer 1"]
+  },
+  {
+    "name": "Snacks",
+    "description": "Crispy and salty",
+    "weight": 0.1,
+    "price": 45,
+    "manufaturer": "Estrella",
+    "images": ["chips"]
   }
 ]
