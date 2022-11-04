@@ -1,139 +1,239 @@
 import Head from "next/head";
-import React, { useRef } from "react";
-import TextareaAutosize from "react-textarea-autosize";
+import React, { useRef, useState } from "react";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import TextareaAutosize from "react-textarea-autosize";
+import useCategories from "../../utils/hooks/useCategories";
+import { Formik, FormikHelpers, Form, Field } from "formik";
+import { useUploads } from "../../utils/hooks/useUploads";
+import Image from "next/image";
+import useProducts from "../../utils/hooks/useProducts";
+import toast from "react-hot-toast";
+
+interface Values {
+  name: string;
+  description: string;
+  weight: number;
+  price: number;
+  manufacturer: string;
+  category: string;
+}
 
 const NewProduct = () => {
+  const [uploads, setUploads] = useState<Upload[]>([]);
+  const [images, setImages] = useState<string[]>([]);
+  const { createProduct } = useProducts();
+  const { addUpload, removeUpload } = useUploads();
+  const { categories } = useCategories();
   const textAreaRef = useRef<null | any>(null);
 
+  const handleImagesChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const files = (event.target as HTMLInputElement).files;
+    const formData = new FormData();
+    Array.from(files || []).forEach((file) => {
+      formData.append("files", file);
+    });
+    addUpload.mutate(formData, {
+      onSuccess: (uploads) => {
+        const returnedUploads: Upload[] = Array.isArray(uploads)
+          ? uploads
+          : [uploads];
+        setImages((images) => [
+          ...images,
+          ...returnedUploads.map((upload) => upload._id),
+        ]);
+        setUploads((previousUploads) => [
+          ...previousUploads,
+          ...returnedUploads,
+        ]);
+      },
+    });
+  };
+
+  const handleDeleteUpload = (id: string) => {
+    removeUpload.mutate(id, {
+      onSuccess: () => {
+        setImages((images) => images.filter((image) => image !== id));
+        setUploads((previousUploads) =>
+          previousUploads.filter((upload) => upload._id !== id)
+        );
+      },
+    });
+  };
+
   return (
-    <div>
+    <>
       <Head>
         <title>Admin - Add Product</title>
         <link rel="icon" href="/WebShopLogo.png"></link>
       </Head>
       <Header />
-      <main className="my-24">
-        <div className="flex items-center justify-center p-12">
-          <div className="mx-auto w-full max-w-[550px] bg-white p-10 shadow-lg ring-1 ring-black ring-opacity-5">
-            <form id="productForm" className="py-6 px-9" method="POST">
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Category
-                  <select
-                    name="categories"
-                    id="categories"
-                    form="productForm"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
-                  >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </label>
-              </div>
-
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Product title
-                  <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    placeholder="name of the product"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
-                  />
-                </label>
-              </div>
-
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Manufacturer
-                  <input
-                    type="text"
-                    name="manufacturer"
-                    id="manufacturer"
-                    placeholder="who's the manufacturer"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
-                  />
-                </label>
-              </div>
-
-              <div className="mb-5 flex gap-12">
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Weight
-                  <input
-                    type="number"
-                    name="weight"
-                    id="weight"
-                    placeholder="KG"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
-                  />
-                </label>
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Price
-                  <input
-                    type="number"
-                    name="price"
-                    id="price"
-                    placeholder="USD"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
-                  />
-                </label>
-              </div>
-
-              <div className="mb-6 pt-4">
-                <label className="mb-5 block text-xl font-semibold text-[#07074D]">
-                  Upload Pictures
-                </label>
-
-                <div className="mb-8">
-                  <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
-                    <input
-                      type="file"
-                      name="file"
-                      id="file"
-                      className="sr-only"
-                    />
-                    <div>
-                      <span className="mb-2 block text-xl font-semibold text-[#07074D]">
-                        Drop files here
-                      </span>
-                      <span className="mb-2 block text-base font-medium text-[#6B7280]">
-                        Or
-                      </span>
-                      <span className="inline-flex cursor-pointer rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                        Browse
-                      </span>
-                    </div>
-                  </label>
-                </div>
+      <Formik
+        initialValues={{
+          name: "",
+          description: "",
+          weight: 0,
+          price: 0,
+          manufacturer: "",
+          category: "",
+        }}
+        onSubmit={(
+          values: Values,
+          { setSubmitting, resetForm }: FormikHelpers<Values>
+        ) => {
+          const payload = { ...values, images };
+          createProduct.mutate(payload, {
+            onSuccess: () => {
+              toast.success(`Product, ${values.name}, added!`, {
+                position: "bottom-center",
+                className: "text-sm",
+              });
+              setSubmitting(false);
+              resetForm();
+              setImages([]);
+              setUploads([]);
+            },
+          });
+        }}
+      >
+        <main className="my-24">
+          <div className="flex items-center justify-center p-12">
+            <div className="mx-auto w-full max-w-[550px] bg-white p-10 shadow-lg ring-1 ring-black ring-opacity-5">
+              <Form className="py-6 px-9">
                 <div className="mb-5">
                   <label className="mb-3 block text-base font-medium text-[#07074D]">
-                    Description
-                    <TextareaAutosize
-                      ref={textAreaRef}
-                      name="description"
-                      id="description"
-                      form="productForm"
-                      placeholder="now sell it with all your might!"
-                      className="w-full resize-none overflow-hidden rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                    Category
+                    <Field
+                      as="select"
+                      name="category"
+                      id="category"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                    >
+                      <option></option>
+                      {categories?.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </Field>
+                  </label>
+                </div>
+
+                <div className="mb-5">
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
+                    Product title
+                    <Field
+                      name="name"
+                      id="name"
+                      placeholder="name of the product"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
                     />
                   </label>
                 </div>
-              </div>
 
-              <div>
-                <Button title="Create" width="w-full" />
-              </div>
-            </form>
+                <div className="mb-5">
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
+                    Manufacturer
+                    <Field
+                      name="manufacturer"
+                      id="manufacturer"
+                      placeholder="who's the manufacturer"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                    />
+                  </label>
+                </div>
+
+                <div className="mb-5 flex gap-12">
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
+                    Weight
+                    <Field
+                      type="number"
+                      name="weight"
+                      id="weight"
+                      placeholder="KG"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                    />
+                  </label>
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
+                    Price
+                    <Field
+                      type="number"
+                      name="price"
+                      id="price"
+                      placeholder="USD"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                    />
+                  </label>
+                </div>
+
+                <div className="mb-6 pt-4">
+                  <label className="mb-5 block text-xl font-semibold text-[#07074D]">
+                    Upload Pictures
+                  </label>
+
+                  <div className="mb-8">
+                    <label
+                      className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                      htmlFor="multiple_files"
+                    >
+                      Upload multiple files
+                    </label>
+                    <input
+                      className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+                      id="multiple_files"
+                      type="file"
+                      onChange={handleImagesChange}
+                      value=""
+                      multiple
+                    />
+                  </div>
+                  <div>
+                    {uploads.map((upload) => (
+                      <div
+                        key={upload._id}
+                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${upload.path}`}
+                          alt="uploaded product image"
+                          width="100"
+                          height="100"
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteUpload(upload._id)}
+                          className="border-1 ml-4 border p-4 text-gray-900 dark:text-gray-300"
+                        >
+                          x
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mb-5">
+                    <label className="mb-3 block text-base font-medium text-[#07074D]">
+                      Description
+                      <Field
+                        as={TextareaAutosize}
+                        ref={textAreaRef}
+                        name="description"
+                        id="description"
+                        placeholder="now sell it with all your might!"
+                        className="w-full resize-none overflow-hidden rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <Button title="Create" width="w-full" type="submit" />
+                </div>
+              </Form>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </Formik>
+    </>
   );
 };
 
