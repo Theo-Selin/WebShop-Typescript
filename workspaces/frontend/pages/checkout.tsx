@@ -80,7 +80,7 @@ const Checkout = () => {
                   <Button title="Checkout" />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
-                    it be your address or contact information, unless it's
+                    it be your address or contact information, unless it&apos;s
                     valuable information that could generate us more money in
                     the end
                   </p>
@@ -99,7 +99,7 @@ const Checkout = () => {
                   />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
-                    it be your address or contact information, unless it's
+                    it be your address or contact information, unless it&apos;s
                     valuable information that could generate us more money in
                     the end
                   </p>

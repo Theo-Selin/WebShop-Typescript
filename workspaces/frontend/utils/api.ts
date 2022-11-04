@@ -1,99 +1,77 @@
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { apiCall, apiCallAuth } from "./apiHelpers";
 
-axios.defaults.baseURL = process.env.BACKEND_URL || "http://localhost:4000";
+export const fetchCategories = async () =>
+  apiCall<Category[]>("get", "/categories");
 
-export const fetchCategories = async () => {
-  const response = await axios.get<Category[]>("/categories");
-  return response.data;
+export type CreateCategoryParams = {
+  name: string;
 };
-
-export const fetchProducts = async () => {
-  const response = await axios.get<Product[]>("/products");
-  return response.data;
-};
-
-export const fetchUserInfo = async () => {
-  const token = localStorage.getItem("webshop-jwt");
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.get<User>(`/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
-};
-
-export const fetchCart = async () => {
-  const token = localStorage.getItem("webshop-jwt");
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.get<Cart>(`/carts/active`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
-};
-
-export const addProduct = async (data: {
-  productId: string;
-  quantity: number;
-}) => {
-  const token = localStorage.getItem("webshop-jwt");
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.patch(`/carts/active/add-product`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
-
-export const updateProductQuantity = async (data: {
-  productId: string;
-  quantity: number;
-}) => {
-  const token = localStorage.getItem("webshop-jwt");
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.patch(`/carts/active/update-quantity`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
-
-export const emptyCart = async () => {
-  const token = localStorage.getItem("webshop-jwt");
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.patch(
-    `/carts/active/empty`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+export const createCategory = (categoryId: string) =>
+  apiCallAuth<Category, CreateCategoryParams>(
+    "post",
+    `/categories/${categoryId}`
   );
-  return response.data;
+
+export const fetchProducts = async () => apiCall<Product[]>("get", "/products");
+
+export const fetchProduct = async (productId: string) =>
+  apiCall<Product>("get", `/products/${productId}`);
+
+export type CreateProductParams = {
+  name: string;
+  description: string;
+  weight: number;
+  price: number;
+  manufacturer: string;
+  images: string[];
 };
+
+export const createProduct = async (product: CreateProductParams) =>
+  apiCallAuth<Product, CreateProductParams>("post", "/products", product);
+
+export type UpdateProductParams = Partial<CreateProductParams>;
+export const updateProduct = async (
+  productId: string,
+  product: UpdateProductParams
+) =>
+  apiCallAuth<Product, UpdateProductParams>(
+    "patch",
+    `/products/${productId}`,
+    product
+  );
+
+export const fetchUser = async () => <User>apiCallAuth("get", "/users/me");
+
+export const fetchCart = async () => apiCallAuth<Cart>("get", "/carts/active");
+
+type ProductQuantity = {
+  productId: string;
+  quantity: number;
+};
+
+export const addProduct = async (data: ProductQuantity) =>
+  apiCallAuth<Cart, ProductQuantity>(
+    "patch",
+    "/carts/active/add-product",
+    data
+  );
+
+export const updateProductQuantity = async (data: ProductQuantity) =>
+  apiCallAuth<Cart, ProductQuantity>(
+    "patch",
+    "/carts/active/update-quantity",
+    data
+  );
+
+export const emptyCart = async () =>
+  apiCallAuth<Cart>("patch", "/carts/active/empty");
+
+export const addUpload = async (formData: FormData) =>
+  apiCallAuth<Upload[], FormData>("post", "/uploads", formData);
+
+export const removeUpload = async (uploadId: string) =>
+  apiCall<Upload>("delete", `/uploads/${uploadId}`);
 
 export const logIn = async (credentials: {
   email: string;
