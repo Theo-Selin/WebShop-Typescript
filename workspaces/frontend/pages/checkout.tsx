@@ -2,14 +2,28 @@ import { useRouter } from "next/router";
 import React, { ReactElement, useContext, useEffect } from "react";
 import Button from "../components/Button";
 import CheckoutProduct from "../components/CheckoutProduct";
-import Currency from "react-currency-format";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import useUser from "../utils/hooks/useUser";
 import BaseLayout from "../components/BaseLayout";
+import useCart from "../utils/hooks/useCart";
 
 const Checkout = () => {
   const router = useRouter();
   const { user } = useUser();
+  const { cart } = useCart();
+  const products = cart?.products;
+  const weight =
+    products &&
+    products.reduce(
+      (sum, product) => sum + product.productId.weight * product.quantity,
+      0
+    );
+  const price =
+    products &&
+    products.reduce(
+      (sum, product) => sum + product.productId.price * product.quantity,
+      0
+    );
 
   useEffect(() => {
     if (!user) {
@@ -21,34 +35,36 @@ const Checkout = () => {
     return null;
   }
 
-  const products = user.activeCart.products;
-
   return (
     <main className="mx-auto max-w-5xl pb-24">
       <div className="flex flex-col items-center px-5">
         <h1 className="mt-20 text-3xl font-semibold lg:text-4xl">
-          {products.length > 0 ? "Review your cart" : "Your cart is empty"}
+          {cart && cart.products.length > 0
+            ? "Review your cart"
+            : "Your cart is empty"}
         </h1>
         <p className="my-4">Free delivery and returns</p>
         <Button title="Continue shopping" onClick={() => router.push("/")} />
       </div>
-      {products && products.length > 0 && (
+      {cart && cart.products.length > 0 && (
         <div className="mx-5 md:mx-8">
-          {products.map((product) => {
-            return <CheckoutProduct key={product.productId} />;
+          {cart.products.map((product) => {
+            return <CheckoutProduct key={product.productId._id} />;
           })}
 
-          <div className="my-12 mt-6 ml-auto max-w-3xl">
+          <div className="my-12 mt-6 ml-auto w-full">
             <div className="divide-y divide-gray-300">
               <div className="pb-4">
                 <div className="flex justify-between">
-                  <p>Subtotal</p>
-                  <p>
-                    <Currency quantity="cartTotal function" currency="USD" />
-                  </p>
+                  <p>Subtotal:</p>
+                  <p>{price}:-</p>
                 </div>
                 <div className="flex justify-between">
-                  <p>Shipping</p>
+                  <p>Weight:</p>
+                  <p>{weight}kg</p>
+                </div>
+                <div className="flex justify-between">
+                  <p>Shipping:</p>
                   <p>Free</p>
                 </div>
                 <div className="flex justify-between">
@@ -64,9 +80,7 @@ const Checkout = () => {
               </div>
               <div className="flex justify-between pt-4 text-xl font-semibold">
                 <h4>Total</h4>
-                <h4>
-                  <Currency quantity="cartTotal function" currency="USD" />
-                </h4>
+                <h4>{price}:-</h4>
               </div>
             </div>
             <div className="my-14 space-y-4">

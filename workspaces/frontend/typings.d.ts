@@ -21,7 +21,7 @@ interface Product {
 }
 
 interface CartItem {
-  productId: string;
+  productId: Product;
   quantity: number;
 }
 interface CartStatus {

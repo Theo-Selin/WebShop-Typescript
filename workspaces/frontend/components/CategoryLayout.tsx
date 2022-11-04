@@ -27,7 +27,6 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
 
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-black/80 backdrop-blur-md">
         <div className="space-y-10">
-          {/* Headless UI category tab menu */}
           <div>
             <div className="scrollbar-hide sticky top-0 z-50 flex overflow-scroll bg-[#232428] sm:justify-center">
               {categories.map((category) => {
