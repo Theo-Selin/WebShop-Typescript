@@ -13,6 +13,7 @@ import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/role.enum';
 import MongooseClassSerializerInterceptor from '../utils/mongooseClassSerializer.interceptor';
+import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 import { Product } from './schemas/products.schema';
@@ -24,8 +25,8 @@ export class ProductsController {
 
   @Roles(Role.Admin)
   @Post()
-  async create(@Body() product: Product) {
-    return await this.productsServices.create(product);
+  async create(@Body() createProductDto: CreateProductDto) {
+    return await this.productsServices.create(createProductDto);
   }
 
   @Public()
