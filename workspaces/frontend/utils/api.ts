@@ -67,6 +67,12 @@ export const updateProductQuantity = async (data: ProductQuantity) =>
 export const emptyCart = async () =>
   apiCallAuth<Cart>("patch", "/carts/active/empty");
 
+export const addUpload = async (formData: FormData) =>
+  apiCallAuth<Upload[], FormData>("post", "/uploads", formData);
+
+export const removeUpload = async (uploadId: string) =>
+  apiCall<Upload>("delete", `/uploads/${uploadId}`);
+
 export const logIn = async (credentials: {
   email: string;
   password: string;

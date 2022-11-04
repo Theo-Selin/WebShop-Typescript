@@ -57,3 +57,16 @@ interface Address {
   city: string;
   country: string;
 }
+
+interface Upload {
+  _id: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  filename: string;
+  path: string;
+  size: number;
+  uploadedBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
