@@ -131,6 +131,13 @@ export class CartsService {
       } else {
         cart.products[productIndex].quantity = updateQuantityDto.quantity;
       }
+
+      const productsInCart = await this.productModel.find({
+        _id: { $in: cart.products.map((product) => product.productId) },
+      });
+
+      setCartPriceAndWeight(cart, productsInCart);
+
       return await cart.save();
     } else {
       throw new ProductNotFoundInCartException(updateQuantityDto.productId, id);
