@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Transform, Type } from 'class-transformer';
 import mongoose, { Document } from 'mongoose';
+import { Upload } from 'src/uploads/schemas/upload.schema';
 import { Category } from '../../categories/schemas/category.schema';
 
 export type ProductDocument = Product & Document;
@@ -25,8 +26,9 @@ export class Product {
   @Prop()
   manufacturer: string;
 
-  @Prop()
-  images: string[];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Upload' }])
+  @Type(() => Upload)
+  images: Upload;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   @Type(() => Category)

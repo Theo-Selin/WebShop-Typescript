@@ -19,4 +19,7 @@ export class CreateProductDto {
 
   @IsArray()
   readonly images: string[];
+
+  @IsString()
+  readonly category: string;
 }
