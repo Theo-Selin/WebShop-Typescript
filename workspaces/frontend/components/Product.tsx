@@ -1,15 +1,17 @@
-import { ShoppingCartIcon } from "@heroicons/react/outline";
+import { ShoppingCartIcon, PencilAltIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
 import useCart from "../utils/hooks/useCart";
+import useUser from "../utils/hooks/useUser";
 
 interface Props {
   product: Product;
 }
 
 const Product = ({ product }: Props) => {
+  const { user } = useUser();
   const { addProduct } = useCart();
 
   const addItemToCart = (productId: string) => {
@@ -37,11 +39,20 @@ const Product = ({ product }: Props) => {
         <p className="text-pink-600">{product.price}:-</p>
       </div>
 
-      <div
-        className="addToCartBtn"
-        onClick={() => product._id && addItemToCart(product._id)}
-      >
-        <ShoppingCartIcon className="h-6 w-6 text-gray-200" />
+      <div className="flex gap-x-10">
+        {user && user.role === "admin" && (
+          <Link href={`/products/edit-product/${product._id}`}>
+            <div className="editProductBtn">
+              <PencilAltIcon className="h-6 w-6 text-gray-400" />
+            </div>
+          </Link>
+        )}
+        <div
+          className="addToCartBtn"
+          onClick={() => product._id && addItemToCart(product._id)}
+        >
+          <ShoppingCartIcon className="h-6 w-6 text-gray-200" />
+        </div>
       </div>
     </div>
   );
