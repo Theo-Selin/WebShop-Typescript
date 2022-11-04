@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { ProductNotFoundException } from 'src/products/exceptions/productNotFound.exception';
 import { User, UserDocument } from 'src/users/schemas/user.schema';
 import { Product, ProductDocument } from '../products/schemas/products.schema';
+import { setCartPriceAndWeight } from './cart.helpers';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
@@ -87,11 +88,6 @@ export class CartsService {
 
     product.quantity += addToCartDto.quantity;
 
-    // cart.products = cart.products.map((p) =>
-    //   p.productId === addToCartDto.productId ? product : p,
-    // );
-
-    // OLD WAY
     cart.products = [
       ...cart.products.filter(
         ({ productId }) => productId.toString() !== addToCartDto.productId,
@@ -99,23 +95,11 @@ export class CartsService {
       product,
     ];
 
-    const productIds = cart.products.map((product) => product.productId);
     const productsInCart = await this.productModel.find({
-      _id: { $in: productIds },
+      _id: { $in: cart.products.map((product) => product.productId) },
     });
 
-    cart.totalPrice = 0;
-    cart.totalWeight = 0;
-    cart.products.forEach((product) => {
-      cart.totalPrice +=
-        productsInCart.find(
-          (p) => p._id.toString() === product.productId.toString(),
-        ).price * product.quantity;
-      cart.totalWeight +=
-        productsInCart.find(
-          (p) => p._id.toString() === product.productId.toString(),
-        ).weight * product.quantity;
-    });
+    setCartPriceAndWeight(cart, productsInCart);
 
     this.logger.log(`Product ${addToCartDto.productId} added to cart ${id}`);
 
@@ -147,6 +131,13 @@ export class CartsService {
       } else {
         cart.products[productIndex].quantity = updateQuantityDto.quantity;
       }
+
+      const productsInCart = await this.productModel.find({
+        _id: { $in: cart.products.map((product) => product.productId) },
+      });
+
+      setCartPriceAndWeight(cart, productsInCart);
+
       return await cart.save();
     } else {
       throw new ProductNotFoundInCartException(updateQuantityDto.productId, id);
@@ -168,9 +159,13 @@ export class CartsService {
   }
 
   async update(id: string, updateCartDto: UpdateCartDto): Promise<Cart> {
-    return await this.cartModel.findByIdAndUpdate(id, updateCartDto, {
+    const cart = await this.cartModel.findByIdAndUpdate(id, updateCartDto, {
       returnDocument: 'after',
     });
+    if (!cart) {
+      throw new CartNotFoundException(id);
+    }
+    return cart;
   }
 
   async remove(id: string): Promise<Cart> {
