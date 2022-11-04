@@ -33,4 +33,8 @@ export class Product {
   category: Category;
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+const ProductSchema = SchemaFactory.createForClass(Product);
+
+ProductSchema.index({ name: 'text', description: 'text' });
+
+export { ProductSchema };
