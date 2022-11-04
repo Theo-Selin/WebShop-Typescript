@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 import { Public } from '../auth/decorators/public.decorator';
@@ -29,8 +30,8 @@ export class ProductsController {
 
   @Public()
   @Get()
-  async findAll() {
-    return await this.productsServices.findAll();
+  async findAll(@Query('search') searchQuery: string) {
+    return await this.productsServices.findAll(searchQuery);
   }
 
   @Public()
