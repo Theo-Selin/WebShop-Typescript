@@ -1,9 +1,12 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useProduct from "../utils/hooks/useProduct";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./Button";
 import { Formik, FormikHelpers, Form, Field } from "formik";
 import { useUploads } from "../utils/hooks/useUploads";
+import Image from "next/image";
+import { toast } from "react-hot-toast";
+import useCategories from "../utils/hooks/useCategories";
 
 interface Values {
   name: string;
@@ -21,14 +24,56 @@ interface Props {
 const EditProductPage = ({ id }: Props) => {
   const [uploads, setUploads] = useState<Upload[]>([]);
   const [images, setImages] = useState<string[]>([]);
-  const { product, isFetched } = useProduct(id);
+  const { categories } = useCategories();
+  const { product, updateProduct, isFetched } = useProduct(id);
+  const { addUpload, removeUpload } = useUploads();
   const textAreaRef = useRef<null | any>(null);
+
+  useEffect(() => {
+    if (!isFetched || !product) {
+      return;
+    }
+    setUploads(product.images);
+    setImages(product.images.map((upload) => upload._id));
+  }, [isFetched]);
 
   if (!isFetched || !product) {
     return null;
   }
 
-  console.log(product);
+  const handleImagesChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const files = (event.target as HTMLInputElement).files;
+    const formData = new FormData();
+    Array.from(files || []).forEach((file) => {
+      formData.append("files", file);
+    });
+    addUpload.mutate(formData, {
+      onSuccess: (uploads) => {
+        const returnedUploads: Upload[] = Array.isArray(uploads)
+          ? uploads
+          : [uploads];
+        setImages((images) => [
+          ...images,
+          ...returnedUploads.map((upload) => upload._id),
+        ]);
+        setUploads((previousUploads) => [
+          ...previousUploads,
+          ...returnedUploads,
+        ]);
+      },
+    });
+  };
+
+  const handleDeleteUpload = (id: string) => {
+    removeUpload.mutate(id, {
+      onSuccess: () => {
+        setImages((images) => images.filter((image) => image !== id));
+        setUploads((previousUploads) =>
+          previousUploads.filter((upload) => upload._id !== id)
+        );
+      },
+    });
+  };
 
   return (
     <Formik
@@ -45,7 +90,15 @@ const EditProductPage = ({ id }: Props) => {
         { setSubmitting, resetForm }: FormikHelpers<Values>
       ) => {
         const payload = { ...values, images };
-        alert(JSON.stringify(payload, null, 2));
+        updateProduct.mutate(payload, {
+          onSuccess: () => {
+            toast.success(`Product, ${values.name}, updated!`, {
+              position: "bottom-center",
+              className: "text-sm",
+            });
+            setSubmitting(false);
+          },
+        });
       }}
     >
       <main className="my-24">
@@ -61,11 +114,11 @@ const EditProductPage = ({ id }: Props) => {
                     id="category"
                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {categories?.map((category) => (
+                      <option key={category._id} value={category._id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </Field>
                 </label>
               </div>
@@ -123,25 +176,43 @@ const EditProductPage = ({ id }: Props) => {
                 </label>
 
                 <div className="mb-8">
-                  <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
-                    <input
-                      type="file"
-                      name="file"
-                      id="file"
-                      className="sr-only"
-                    />
-                    <div>
-                      <span className="mb-2 block text-xl font-semibold text-[#07074D]">
-                        Drop files here
-                      </span>
-                      <span className="mb-2 block text-base font-medium text-[#6B7280]">
-                        Or
-                      </span>
-                      <span className="inline-flex cursor-pointer rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">
-                        Browse
-                      </span>
-                    </div>
+                  <label
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                    htmlFor="multiple_files"
+                  >
+                    Upload multiple files
                   </label>
+                  <input
+                    className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+                    id="multiple_files"
+                    type="file"
+                    onChange={handleImagesChange}
+                    value=""
+                    multiple
+                  />
+                </div>
+                <div>
+                  {uploads.map((upload) => (
+                    <div
+                      key={upload._id}
+                      className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${upload.path}`}
+                        alt="uploaded product image"
+                        width="100"
+                        height="100"
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteUpload(upload._id)}
+                        className="border-1 ml-4 border p-4 text-gray-900 dark:text-gray-300"
+                      >
+                        x
+                      </button>
+                    </div>
+                  ))}
                 </div>
                 <div className="mb-5">
                   <label className="mb-3 block text-base font-medium text-[#07074D]">
@@ -159,7 +230,7 @@ const EditProductPage = ({ id }: Props) => {
               </div>
 
               <div>
-                <Button title="Create" width="w-full" type="submit" />
+                <Button title="Update" width="w-full" type="submit" />
               </div>
             </Form>
           </div>
