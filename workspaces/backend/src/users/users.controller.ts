@@ -56,7 +56,6 @@ export class UsersController {
   @Post('checkout')
   async checkout(@Req() req: Request, @Body() checkoutDto: CheckoutDto) {
     const { userId } = req.user as JwtPayload;
-    console.log(userId);
     return await this.usersService.checkout(userId, checkoutDto);
   }
 

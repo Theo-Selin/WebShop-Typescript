@@ -31,19 +31,19 @@ const Product = ({ product }: Props) => {
   return (
     <div className="h-68 flex w-72 select-none flex-col items-center space-y-3 rounded-xl bg-[#ffffff] p-8 md:h-[500px] md:w-[400px] md:p-10">
       <div className="relative h-64 w-52 md:h-72">
-        <Link href={`/products/${product._id}`}>
-          {product.images.length ? (
-            <Image
-              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`}
-              alt={`${product.name}$ cover image`}
-              className="cursor-pointer"
-              layout="fill"
-              objectFit="contain"
-            />
-          ) : (
-            <div />
-          )}
-        </Link>
+        {product.images.length ? (
+          <Link href={`/products/${product._id}`}>
+            <a>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`}
+                alt={`${product.name}$ cover image`}
+                className="cursor-pointer"
+                layout="fill"
+                objectFit="contain"
+              />
+            </a>
+          </Link>
+        ) : null}
       </div>
 
       <div className="flex flex-col items-center space-y-2 text-xl md:text-2xl">
