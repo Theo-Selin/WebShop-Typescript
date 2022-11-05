@@ -9,7 +9,7 @@ interface Props {
 
 const ProductDetailsPage = ({ id }: Props) => {
   const { product, isFetched } = useProduct(id);
-  console.log(product);
+
   if (!isFetched || !product) {
     return null;
   }
