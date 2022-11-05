@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Upload, UploadDocument } from './schemas/upload.schema';
 import * as fs from 'fs/promises';
-import { join } from 'path';
+import { join, sep } from 'path';
 
 @Injectable()
 export class UploadsService {
@@ -22,7 +22,7 @@ export class UploadsService {
         encoding,
         mimetype,
         filename,
-        path: path.split('/').slice(1).join('/'),
+        path: path.split(sep).slice(1).join('/'),
         size,
         uploadedBy: userId,
       };
