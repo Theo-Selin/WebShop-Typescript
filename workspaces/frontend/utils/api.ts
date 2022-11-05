@@ -8,7 +8,24 @@ export type CreateCategoryParams = {
   name: string;
 };
 export const createCategory = async (data: CreateCategoryParams) =>
-  apiCallAuth<Category, CreateCategoryParams>("post", `/categories`, data);
+  apiCallAuth<Category, CreateCategoryParams>("post", "/categories", data);
+
+export type UpdateCategoryParams = {
+  name: string;
+};
+
+export const fetchCategory = async (categoryId: string) =>
+  apiCall<Category>("get", `/categories/${categoryId}`);
+
+export const updateCategory = async (
+  categoryId: string,
+  data: CreateCategoryParams
+) =>
+  apiCallAuth<Category, UpdateCategoryParams>(
+    "patch",
+    `/categories/${categoryId}`,
+    data
+  );
 
 export const fetchProducts = async () => apiCall<Product[]>("get", "/products");
 
