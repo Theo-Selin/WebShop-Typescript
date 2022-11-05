@@ -40,7 +40,9 @@ const Product = ({ product }: Props) => {
               layout="fill"
               objectFit="contain"
             />
-          ) : null}
+          ) : (
+            <div />
+          )}
         </Link>
       </div>
 

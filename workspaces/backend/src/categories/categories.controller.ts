@@ -34,7 +34,7 @@ export class CategoriesController {
     return await this.categoriesService.findAll();
   }
 
-  // TODO: should this exist?
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.categoriesService.findOne(id);
