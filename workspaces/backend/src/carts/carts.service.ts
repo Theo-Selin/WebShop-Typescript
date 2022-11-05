@@ -47,12 +47,19 @@ export class CartsService {
           populate: {
             path: 'productId',
             model: 'Product',
-            populate: {
-              path: 'category',
-              model: 'Category',
-            },
+            populate: [
+              {
+                path: 'category',
+                model: 'Category',
+              },
+              {
+                path: 'images',
+                model: 'Upload',
+              },
+            ],
           },
         });
+
       if (cart) {
         return cart;
       } else {
