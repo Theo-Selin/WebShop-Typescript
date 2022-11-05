@@ -1,8 +1,6 @@
-import React, { useRef } from "react";
-import Button from "../../../components/Button";
+import React from "react";
 import Header from "../../../components/Header";
 import Head from "next/head";
-import useProduct from "../../../utils/hooks/useProduct";
 import { useRouter } from "next/router";
 import EditProductPage from "../../../components/EditProductPage";
 
