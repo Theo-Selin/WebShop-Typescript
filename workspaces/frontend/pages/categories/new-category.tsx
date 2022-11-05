@@ -10,7 +10,7 @@ const NewCategory = () => {
     <div>
       <div>
         <Head>
-          <title>Admin - Add Product</title>
+          <title>Admin - New Category</title>
           <link rel="icon" href="/WebShopLogo.png"></link>
         </Head>
         <Header />

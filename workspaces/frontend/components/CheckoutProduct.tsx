@@ -21,7 +21,7 @@ const CheckoutProduct = () => {
             <div className="flex flex-col items-center gap-x-4 border-b border-gray-300 pb-5 text-sm lg:flex-row lg:items-center">
               <div className="relative h-44 w-44">
                 <Image
-                  src={product.productId.images[0]}
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.productId.images[0].path}`}
                   layout="fill"
                   objectFit="contain"
                   priority

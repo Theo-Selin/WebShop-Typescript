@@ -13,7 +13,6 @@ import useCart from "../utils/hooks/useCart";
 const Header = () => {
   const { user } = useUser();
   const { cart } = useCart();
-  const products = user?.activeCart.products;
 
   return (
     <header className="fixed top-0 z-50 flex w-full items-center justify-between bg-white p-4">
@@ -35,7 +34,7 @@ const Header = () => {
         <a className="headerLink">Support</a>
         <a className="headerLink">Business</a>
       </div>
-      <div className="flex items-center justify-center space-x-4 md:w-1/5">
+      <div className="flex items-center space-x-4">
         <SearchIcon className="headerIcon" />
         <Link href="/checkout">
           <div className="relative cursor-pointer">
