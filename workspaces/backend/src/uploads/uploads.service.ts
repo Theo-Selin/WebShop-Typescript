@@ -10,11 +10,11 @@ export class UploadsService {
   constructor(
     @InjectModel(Upload.name)
     private readonly uploadModel: Model<UploadDocument>,
-  ) {}
+  ) { }
 
   private readonly logger = new Logger(UploadsService.name);
 
-  createMany(userId: string, files: Express.Multer.File[]) {
+  async createMany(userId: string, files: Express.Multer.File[]) {
     const newFiles = files.map((file) => {
       const { originalname, encoding, mimetype, filename, path, size } = file;
       return {

@@ -4,24 +4,17 @@ import { useRouter } from "next/router";
 import { FormEventHandler, ReactElement, useState } from "react";
 import BaseLayout from "../components/BaseLayout";
 import Button from "../components/Button";
-import { logIn } from "../utils/api";
 
-const Login = () => {
+const Signup = () => {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
   const router = useRouter();
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-    const token = await logIn({ email, password });
-    if (token) {
-      router.push("/");
-    } else {
-      setError("Email or password not correct");
-    }
-  };
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {};
 
   return (
     <div>
@@ -33,9 +26,24 @@ const Login = () => {
         <div className="flex items-center justify-center p-14">
           <div className="mx-auto w-full max-w-[550px] bg-white p-14 shadow-lg ring-1 ring-black ring-opacity-5">
             <h1 className="mb-3 block w-full text-center text-2xl font-medium text-[#07074D]">
-              Login
+              Create account
             </h1>
             <form onSubmit={handleSubmit} className="py-6 px-12">
+              <div className="mb-5">
+                <label className="mb-3 block text-base font-medium text-[#07074D]">
+                  Full name:{" "}
+                </label>
+                <input
+                  type="text"
+                  name="text"
+                  placeholder="First and last name"
+                  onChange={(event) => {
+                    setError("");
+                    return setFullName(event.target.value);
+                  }}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                />
+              </div>
               <div className="mb-5">
                 <label className="mb-3 block text-base font-medium text-[#07074D]">
                   Email:{" "}
@@ -43,7 +51,7 @@ const Login = () => {
                 <input
                   type="email"
                   name="email"
-                  value={email}
+                  placeholder="example@mail.com"
                   onChange={(event) => {
                     setError("");
                     return setEmail(event.target.value);
@@ -51,7 +59,7 @@ const Login = () => {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
                 />
               </div>
-              <div className="mb-10">
+              <div className="mb-5">
                 <label className="mb-3 block text-base font-medium text-[#07074D]">
                   Password:{" "}
                 </label>
@@ -66,13 +74,28 @@ const Login = () => {
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
                 />
               </div>
+              <div className="mb-10">
+                <label className="mb-3 block text-base font-medium text-[#07074D]">
+                  Confirm password:{" "}
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(event) => {
+                    setError("");
+                    return setPassword(event.target.value);
+                  }}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-violet-400 focus:shadow-md"
+                />
+              </div>
               {error && <p className="text-red-400">{error}</p>}
-              <Button title="Login" width="w-full mb-5" />
+              <Button title="Create" width="w-full mb-5" />
               <div className="flex flex-col items-center">
-                <p className="">Don't have an account yet?</p>
-                <Link href="/signup">
+                <p className="">Already have an account?</p>
+                <Link href="/login">
                   <p className="cursor-pointer text-blue-400 hover:text-blue-600">
-                    Signup here
+                    Login here
                   </p>
                 </Link>
               </div>
@@ -84,6 +107,6 @@ const Login = () => {
   );
 };
 
-Login.getLayout = (page: ReactElement) => <BaseLayout>{page}</BaseLayout>;
+Signup.getLayout = (page: ReactElement) => <BaseLayout>{page}</BaseLayout>;
 
-export default Login;
+export default Signup;

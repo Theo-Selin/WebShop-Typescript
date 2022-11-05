@@ -35,6 +35,7 @@ const NewProduct = () => {
     });
     addUpload.mutate(formData, {
       onSuccess: (uploads) => {
+        console.log(uploads);
         const returnedUploads: Upload[] = Array.isArray(uploads)
           ? uploads
           : [uploads];
@@ -64,7 +65,7 @@ const NewProduct = () => {
   return (
     <>
       <Head>
-        <title>Admin - Add Product</title>
+        <title>Admin - New Product</title>
         <link rel="icon" href="/WebShopLogo.png"></link>
       </Head>
       <Header />
@@ -191,19 +192,24 @@ const NewProduct = () => {
                     {uploads.map((upload) => (
                       <div
                         key={upload._id}
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="mb-8 flex w-64 justify-between text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
                         <Image
                           src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${upload.path}`}
                           alt="uploaded product image"
                           width="100"
                           height="100"
+                          objectFit="contain"
                         />
+
+                        <p className="flex items-center">
+                          {upload.originalname}
+                        </p>
 
                         <button
                           type="button"
                           onClick={() => handleDeleteUpload(upload._id)}
-                          className="border-1 ml-4 border p-4 text-gray-900 dark:text-gray-300"
+                          className="my-auto h-6 w-6 text-lg text-gray-900 opacity-50 hover:opacity-100 dark:text-gray-300"
                         >
                           x
                         </button>
