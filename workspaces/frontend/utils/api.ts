@@ -7,11 +7,8 @@ export const fetchCategories = async () =>
 export type CreateCategoryParams = {
   name: string;
 };
-export const createCategory = (categoryId: string) =>
-  apiCallAuth<Category, CreateCategoryParams>(
-    "post",
-    `/categories/${categoryId}`
-  );
+export const createCategory = async (data: CreateCategoryParams) =>
+  apiCallAuth<Category, CreateCategoryParams>("post", `/categories`, data);
 
 export const fetchProducts = async () => apiCall<Product[]>("get", "/products");
 
