@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Upload, UploadDocument } from './schemas/upload.schema';
 import * as fs from 'fs/promises';
+import { join } from 'path';
 
 @Injectable()
 export class UploadsService {
@@ -21,7 +22,7 @@ export class UploadsService {
         encoding,
         mimetype,
         filename,
-        path,
+        path: path.split('/').slice(1).join('/'),
         size,
         uploadedBy: userId,
       };
@@ -32,7 +33,7 @@ export class UploadsService {
   async remove(uploadId: string) {
     try {
       const removedFile = await this.uploadModel.findByIdAndDelete(uploadId);
-      await fs.unlink(removedFile.path);
+      await fs.unlink(join('public', removedFile.path));
       return removedFile;
     } catch (e) {
       this.logger.error(e);

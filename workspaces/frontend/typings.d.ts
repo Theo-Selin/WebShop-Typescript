@@ -16,7 +16,7 @@ interface Product {
   weight: number;
   price: number;
   manufacturer: string;
-  images: string[];
+  images: Upload[];
   category: Category;
 }
 

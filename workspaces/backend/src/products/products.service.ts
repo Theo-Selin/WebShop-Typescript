@@ -25,10 +25,10 @@ export class ProductsService {
     if (searchQuery) {
       filter.$text = { $search: searchQuery };
     }
-    console.log(filter.$text);
     return await this.productModel
       .find(filter)
       .populate('category')
+      .populate('images')
       .sort({ name: 1 });
   }
 
