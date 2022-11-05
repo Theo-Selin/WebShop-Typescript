@@ -36,7 +36,6 @@ const NewProduct = () => {
     });
     addUpload.mutate(formData, {
       onSuccess: (uploads) => {
-        console.log(uploads);
         const returnedUploads: Upload[] = Array.isArray(uploads)
           ? uploads
           : [uploads];
