@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: categories.map((category) => ({
       params: { category: category.slug },
     })),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -50,6 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         (product) => product.category.slug === context?.params?.category
       ),
     },
+    revalidate: 10,
   };
 };
 
