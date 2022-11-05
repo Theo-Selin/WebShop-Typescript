@@ -69,7 +69,7 @@ const Login = () => {
               {error && <p className="text-red-400">{error}</p>}
               <Button title="Login" width="w-full mb-5" />
               <div className="flex flex-col items-center">
-                <p className="">Don't have an account yet?</p>
+                <p className="">Don&apos;t have an account yet?</p>
                 <Link href="/signup">
                   <p className="cursor-pointer text-blue-400 hover:text-blue-600">
                     Signup here
