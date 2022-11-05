@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useRef, useState } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import TextareaAutosize from "react-textarea-autosize";
@@ -9,6 +9,7 @@ import { useUploads } from "../../utils/hooks/useUploads";
 import Image from "next/image";
 import useProducts from "../../utils/hooks/useProducts";
 import toast from "react-hot-toast";
+import BaseLayout from "../../components/BaseLayout";
 
 interface Values {
   name: string;
@@ -68,7 +69,6 @@ const NewProduct = () => {
         <title>Admin - New Product</title>
         <link rel="icon" href="/WebShopLogo.png"></link>
       </Head>
-      <Header />
       <Formik
         initialValues={{
           name: "",
@@ -86,7 +86,7 @@ const NewProduct = () => {
           createProduct.mutate(payload, {
             onSuccess: () => {
               toast.success(`Product, ${values.name}, added!`, {
-                position: "bottom-center",
+                position: "top-center",
                 className: "text-sm",
               });
               setSubmitting(false);
@@ -242,5 +242,7 @@ const NewProduct = () => {
     </>
   );
 };
+
+NewProduct.getLayout = (page: ReactElement) => <BaseLayout>{page}</BaseLayout>;
 
 export default NewProduct;
