@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { ReactElement, useRef, useState } from "react";
 import Button from "../../components/Button";
-import Header from "../../components/Header";
 import TextareaAutosize from "react-textarea-autosize";
 import useCategories from "../../utils/hooks/useCategories";
 import { Formik, FormikHelpers, Form, Field } from "formik";
