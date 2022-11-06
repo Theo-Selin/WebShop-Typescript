@@ -27,7 +27,8 @@ export const updateCategory = async (
     data
   );
 
-export const fetchProducts = async () => apiCall<Product[]>("get", "/products");
+export const fetchProducts = async (search: string = "") =>
+  apiCall<Product[]>("get", `/products${search ? `?search=${search}` : ""}`);
 
 export const fetchProduct = async (productId: string) =>
   apiCall<Product>("get", `/products/${productId}`);

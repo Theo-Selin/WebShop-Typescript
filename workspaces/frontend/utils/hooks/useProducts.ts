@@ -5,12 +5,12 @@ import {
   fetchProducts,
 } from "../api";
 
-const useProducts = () => {
+const useProducts = (search: string = "") => {
   const queryClient = useQueryClient();
 
   const { data: products, ...rest } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryKey: ["products", search],
+    queryFn: () => fetchProducts(search),
   });
 
   const createProduct = useMutation({
