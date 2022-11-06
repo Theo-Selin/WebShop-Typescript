@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "../utils/api";
 import Landing from "./Landing";
+import SearchBar from "./SearchBar";
 
 type CategoryLayoutProps = {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
 
   return (
     <>
-      <div className="static h-[200vh]">
+      <div className="static h-[196vh]">
         <Landing />
       </div>
 
@@ -46,6 +47,7 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
                 );
               })}
             </div>
+            <SearchBar />
             <div>{children}</div>
           </div>
         </div>
