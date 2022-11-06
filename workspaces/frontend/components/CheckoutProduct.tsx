@@ -24,8 +24,8 @@ const CheckoutProduct = () => {
     <>
       {cart?.products.map((product) => (
         <div key={product.productId._id}>
-          <div className="flex flex-col items-center gap-x-4 border-b border-gray-300 pb-5 text-sm lg:flex-row lg:items-center">
-            <div className="relative h-44 w-44">
+          <div className="flex flex-col items-center gap-x-4 border-b border-gray-300 p-10 text-sm lg:flex-row lg:justify-between">
+            <div className="relative h-40 w-40">
               {product.productId.images.length > 0 ? (
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.productId.images[0].path}`}

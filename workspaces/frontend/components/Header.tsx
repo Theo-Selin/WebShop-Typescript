@@ -15,7 +15,7 @@ const Header = () => {
   const { cart } = useCart();
 
   return (
-    <header className="fixed top-0 z-50 flex w-full items-center justify-between bg-white p-4">
+    <header className="fixed top-0 z-30 flex w-full items-center justify-between bg-white p-4">
       <div className="flex items-center justify-center md:w-1/5">
         <Link href="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
@@ -49,7 +49,7 @@ const Header = () => {
 
         {/* Change icon depending if the user is logged in or not */}
         {user ? (
-          <Link href="/login">
+          <Link href="/logout">
             <UserIcon
               className="headerIcon text-green-400"
               // onClick={() => signIn()}
