@@ -69,7 +69,7 @@ const AdminDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <ViewListIcon className="mx-4 h-4 w-4" />
-                    <Link href="/categories/new-category">Active orders</Link>
+                    <Link href="/orders">Active orders</Link>
                   </div>
                 )}
               </Menu.Item>
