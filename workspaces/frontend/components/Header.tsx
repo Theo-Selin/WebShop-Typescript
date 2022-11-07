@@ -34,7 +34,7 @@ const Header = () => {
         <a className="headerLink">Support</a>
         <a className="headerLink">Business</a>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 md:w-1/5">
         <SearchIcon className="headerIcon" />
         <Link href="/checkout">
           <div className="relative cursor-pointer">
