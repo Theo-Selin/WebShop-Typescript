@@ -8,8 +8,11 @@ import {
 } from "@heroicons/react/outline";
 import Link from "next/link";
 import React from "react";
+import useUser from "../utils/hooks/useUser";
 
 const UserDropdown = () => {
+  const { user } = useUser();
+  const id = user?._id;
   return (
     <div className="relative text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -38,7 +41,7 @@ const UserDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <UserIcon className="mx-4 h-4 w-4" />
-                    <Link href="/products/new-product">Profile</Link>
+                    <Link href={`/users/profile/${id}`}>Profile</Link>
                   </div>
                 )}
               </Menu.Item>
@@ -52,7 +55,7 @@ const UserDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <ViewListIcon className="mx-4 h-4 w-4" />
-                    <Link href="/categories/new-category">Order history</Link>
+                    <Link href="/orders">Order history</Link>
                   </div>
                 )}
               </Menu.Item>
@@ -66,7 +69,7 @@ const UserDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <LogoutIcon className="mx-4 h-4 w-4" />
-                    <Link href="/categories/new-category">Logout</Link>
+                    <Link href="/logout">Logout</Link>
                   </div>
                 )}
               </Menu.Item>

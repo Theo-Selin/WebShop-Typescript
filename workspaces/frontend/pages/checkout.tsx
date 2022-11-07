@@ -50,7 +50,7 @@ const Checkout = () => {
       </div>
       {cart && cart.products.length > 0 && (
         <div className="mx-5 md:mx-8">
-          <CheckoutProduct />;
+          <CheckoutProduct />
           <div className="my-12 mt-6 ml-auto w-full">
             <div className="divide-y divide-gray-300">
               <div className="pb-4">
