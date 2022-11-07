@@ -9,6 +9,7 @@ import {
 import useUser from "../utils/hooks/useUser";
 import AdminDropdown from "./AdminDropdown";
 import useCart from "../utils/hooks/useCart";
+import UserDropdown from "./UserDropdown";
 
 const Header = () => {
   const { user } = useUser();
@@ -49,12 +50,7 @@ const Header = () => {
 
         {/* Change icon depending if the user is logged in or not */}
         {user ? (
-          <Link href="/logout">
-            <UserIcon
-              className="headerIcon text-green-400"
-              // onClick={() => signIn()}
-            />
-          </Link>
+          <UserDropdown />
         ) : (
           <Link href="/login">
             <UserIcon
