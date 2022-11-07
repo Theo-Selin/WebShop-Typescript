@@ -29,7 +29,7 @@ const Product = ({ product }: Props) => {
   };
 
   return (
-    <div className="h-68 flex w-72 select-none flex-col items-center space-y-3 rounded-xl bg-[#ffffff] p-8 md:h-[500px] md:w-[400px] md:p-10">
+    <div className="h-68 flex select-none flex-col items-center space-y-3 rounded-xl bg-[#ffffff] p-8 md:h-[500px] md:w-[400px] md:p-10">
       <div className="relative h-64 w-52 md:h-72">
         {product.images.length ? (
           <Link href={`/products/${product._id}`}>
