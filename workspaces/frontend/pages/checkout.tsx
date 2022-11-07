@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
-import React, { ReactElement, useContext, useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Button from "../components/Button";
 import CheckoutProduct from "../components/CheckoutProduct";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import useUser from "../utils/hooks/useUser";
 import BaseLayout from "../components/BaseLayout";
 import useCart from "../utils/hooks/useCart";
+import AddressForm from "../components/AddressForm";
 
 const Checkout = () => {
+  const [visible, setVisible] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useUser();
   const { cart } = useCart();
@@ -67,13 +69,21 @@ const Checkout = () => {
                 <div className="flex justify-between">
                   <div className="flex flex-col gap-x-1 lg:flex-row">
                     Estimated tax for:{" "}
-                    <p className="flex cursor-pointer items-end text-blue-500 hover:underline">
+                    <p
+                      onClick={() =>
+                        visible && visible === true
+                          ? setVisible(false)
+                          : setVisible(true)
+                      }
+                      className="flex cursor-pointer items-end text-blue-500 hover:underline"
+                    >
                       Enter Address
                       <ChevronDownIcon className="h-6 w-6" />
                     </p>
                   </div>
-                  <p></p>
+                  <p>tax amount</p>
                 </div>
+                {visible && visible === true && <AddressForm />}
               </div>
               <div className="flex justify-between pt-4 text-xl font-semibold">
                 <h4>Total</h4>
