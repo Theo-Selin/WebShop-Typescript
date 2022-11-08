@@ -65,7 +65,17 @@ export type CreateUserParams = {
 };
 
 export const createUser = async (userDetails: CreateUserParams) =>
-  <User>apiCall("post", "/users", userDetails);
+  apiCall<User>("post", "/users", userDetails);
+
+export type UpdateUserParams = {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  deliveryAddress: Address;
+};
+
+export const updateUser = async (userDetails: UpdateUserParams) =>
+  apiCallAuth<User>("patch", "/users/me", userDetails);
 
 export const fetchCart = async () => apiCallAuth<Cart>("get", "/carts/active");
 
