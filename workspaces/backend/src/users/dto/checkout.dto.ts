@@ -1,9 +1,19 @@
 import { Type } from 'class-transformer';
-import { IsOptional } from 'class-validator';
+import {
+  IsDefined,
+  IsNotEmptyObject,
+  IsObject,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 import { DeliveryAddressDto } from './delivery-address.dto';
 
 export class CheckoutDto {
-  @Type(() => DeliveryAddressDto)
+  @IsDefined()
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
   @IsOptional()
+  @Type(() => DeliveryAddressDto)
   deliveryAddress: DeliveryAddressDto;
 }

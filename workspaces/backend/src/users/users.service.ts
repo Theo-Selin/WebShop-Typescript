@@ -70,6 +70,7 @@ export class UsersService {
   ): Promise<User> {
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       returnDocument: 'after',
+      upsert: true,
     });
     this.logger.log(`User: ${user.id} updated ${updateUserDto}`);
     return user;
