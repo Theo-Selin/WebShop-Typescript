@@ -21,6 +21,10 @@ export class UpdateUserDto {
   email: string;
 
   @IsOptional()
+  @IsString({ message: 'Must be a string' })
+  phoneNumber: string;
+
+  @IsOptional()
   @IsDefined()
   @IsNotEmptyObject()
   @IsObject()

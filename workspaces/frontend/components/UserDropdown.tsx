@@ -1,11 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  LogoutIcon,
-  PlusIcon,
-  UserIcon,
-  ViewListIcon,
-} from "@heroicons/react/outline";
+import { LogoutIcon, UserIcon, ViewListIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import React from "react";
 import useUser from "../utils/hooks/useUser";
@@ -41,7 +35,7 @@ const UserDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <UserIcon className="mx-4 h-4 w-4" />
-                    <Link href={`/users/profile/${id}`}>Profile</Link>
+                    <Link href={`/users/profile`}>Profile</Link>
                   </div>
                 )}
               </Menu.Item>

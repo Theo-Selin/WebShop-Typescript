@@ -19,6 +19,10 @@ export class UpdateLoggedInUserDto {
   @IsEmail({ message: 'Not valid email format' })
   email: string;
 
+  @IsOptional()
+  @IsString({ message: 'Must be a string' })
+  phoneNumber: string;
+
   @IsDefined()
   @IsNotEmptyObject()
   @IsObject()
