@@ -7,12 +7,14 @@ import useUser from "../utils/hooks/useUser";
 import BaseLayout from "../components/BaseLayout";
 import useCart from "../utils/hooks/useCart";
 import AddressForm from "../components/AddressForm";
+import PostCheckout from "../components/PostCheckout";
 
 const Checkout = () => {
+  const [isCheckedOut, setIsCheckedOut] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useUser();
-  const { cart } = useCart();
+  const { cart, checkoutOrder } = useCart();
   const products = cart?.products;
   const weight =
     products &&
@@ -35,6 +37,18 @@ const Checkout = () => {
 
   if (!user) {
     return null;
+  }
+
+  const handleCheckout = () => {
+    checkoutOrder.mutate(undefined, {
+      onSuccess: () => {
+        setIsCheckedOut(true);
+      },
+    });
+  };
+
+  if (isCheckedOut) {
+    return <PostCheckout />;
   }
 
   return (
@@ -98,7 +112,7 @@ const Checkout = () => {
                     <span>Pay Directly</span>
                     <span>with Swish</span>
                   </h4>
-                  <Button title="Checkout" />
+                  <Button title="Checkout" onClick={handleCheckout} />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
                     it be your address or contact information, unless it&apos;s
@@ -114,9 +128,8 @@ const Checkout = () => {
                   </h4>
                   <Button
                     noIcon
-                    // loading={loading}
                     title="Check out with Klarna"
-                    // onClick={startCheckoutProcess}
+                    onClick={handleCheckout}
                   />
                   <p className="mt-2 max-w-[300px] text-[12px]">
                     We do not save any kind of information given to us, whether
