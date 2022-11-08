@@ -52,7 +52,7 @@ const Header = () => {
         {user ? (
           <UserDropdown />
         ) : (
-          <Link href="/login">
+          <Link href="/users/login">
             <UserIcon
               className="headerIcon"
               // onClick={() => signIn()}
