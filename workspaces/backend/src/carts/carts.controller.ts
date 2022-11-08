@@ -54,6 +54,13 @@ export class CartsController {
     return await this.cartsService.findActiveCart(userId);
   }
 
+  @ResponseDto(FindOneResponseDto)
+  @Get('checked-out')
+  async findCheckedOut(@Req() req: Request) {
+    const { userId } = req.user as JwtPayload;
+    return await this.cartsService.findPlacedOrders(userId);
+  }
+
   @Roles(Role.Admin)
   @ResponseDto(FindOneResponseDto)
   @Get(':id')
