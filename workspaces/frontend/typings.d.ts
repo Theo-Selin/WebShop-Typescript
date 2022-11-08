@@ -33,11 +33,14 @@ interface CartStatus {
 }
 interface Cart {
   _id?: string;
-  productId: string;
   products: CartItem[];
-  status: CartStatus;
+  status: string;
+  totalPrice: number;
+  totalWeight: number;
+  deliveryCost: number;
   user: string;
   deliveryAddress: DeliveryAddress;
+  createdAt: string;
 }
 
 interface User {

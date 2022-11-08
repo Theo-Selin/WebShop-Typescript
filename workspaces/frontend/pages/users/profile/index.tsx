@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import BaseLayout from "../../../components/BaseLayout";
 import UpdateUserProfile from "../../../components/UpdateUserProfile";
+import UserOrders from "../../../components/UserOrders";
 import useUser from "../../../utils/hooks/useUser";
 
 const UpdateUserProfilePage = () => {
