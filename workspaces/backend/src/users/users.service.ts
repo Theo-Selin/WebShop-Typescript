@@ -98,6 +98,10 @@ export class UsersService {
 
   async checkout(id: string, checkoutDto: CheckoutDto): Promise<User> {
     const user = await this.userModel.findById(id);
+    const cart = await this.cartsService.findOne(user.activeCart);
+    if (!cart.products.length) {
+      throw new HttpException('The cart is empty.', HttpStatus.BAD_REQUEST);
+    }
     await this.cartsService.update(user.activeCart, {
       status: CartStatus.Registered,
       deliveryAddress: checkoutDto
