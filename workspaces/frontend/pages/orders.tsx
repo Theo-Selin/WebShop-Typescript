@@ -1,13 +1,12 @@
 import { ChevronDownIcon } from "@heroicons/react/outline";
-import router from "next/router";
 import React, { ReactElement, useState } from "react";
 import AddressForm from "../components/AddressForm";
 import BaseLayout from "../components/BaseLayout";
-import Button from "../components/Button";
 import CheckoutProduct from "../components/CheckoutProduct";
 
-const orders = () => {
+const Orders = () => {
   const [visible, setVisible] = useState<boolean>(false);
+
   return (
     <main className="mx-auto my-24 max-w-5xl pb-24">
       <div className="mx-5 md:mx-8">
@@ -50,8 +49,8 @@ const orders = () => {
   );
 };
 
-orders.getLayout = function getLayout(page: ReactElement) {
+Orders.getLayout = function getLayout(page: ReactElement) {
   return <BaseLayout>{page}</BaseLayout>;
 };
 
-export default orders;
+export default Orders;
