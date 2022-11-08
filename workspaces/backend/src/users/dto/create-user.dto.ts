@@ -1,15 +1,4 @@
-import { Type } from 'class-transformer';
-import {
-  IsDefined,
-  IsEmail,
-  IsIn,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { DeliveryAddressDto } from './delivery-address.dto';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Name required' })
@@ -23,15 +12,4 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Email required' })
   @IsEmail({ message: 'Not valid email format' })
   email: string;
-
-  @IsDefined()
-  @IsNotEmptyObject()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => DeliveryAddressDto)
-  deliveryAddress: DeliveryAddressDto;
-
-  @IsNotEmpty()
-  @IsIn(['admin', 'customer'])
-  role: string;
 }

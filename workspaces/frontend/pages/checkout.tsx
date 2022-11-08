@@ -31,7 +31,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/login");
+      router.push("/users/login");
     }
   }, [user, router]);
 

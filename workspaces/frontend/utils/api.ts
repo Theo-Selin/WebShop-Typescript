@@ -58,6 +58,15 @@ export const updateProduct = async (
 
 export const fetchUser = async () => <User>apiCallAuth("get", "/users/me");
 
+export type CreateUserParams = {
+  fullName: string;
+  email: string;
+  password: string;
+};
+
+export const createUser = async (userDetails: CreateUserParams) =>
+  <User>apiCall("post", "/users", userDetails);
+
 export const fetchCart = async () => apiCallAuth<Cart>("get", "/carts/active");
 
 export const fetchOrders = async () =>
