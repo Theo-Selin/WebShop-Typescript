@@ -75,6 +75,36 @@ export class CartsService {
     return this.findOne(user.activeCart);
   }
 
+  async findPlacedOrders(userId: string) {
+    const user = await this.userModel.findById(userId);
+    const orders = await this.cartModel
+      .find({
+        user: user._id,
+        status: {
+          $in: ['registered', 'inProgress', 'inDelivery', 'delivered'],
+        },
+      })
+      .populate('user')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'productId',
+          model: 'Product',
+          populate: [
+            {
+              path: 'category',
+              model: 'Category',
+            },
+            {
+              path: 'images',
+              model: 'Upload',
+            },
+          ],
+        },
+      });
+    return orders;
+  }
+
   async addToActiveCart(userId: string, addToCartDto: AddToCartDto) {
     const user = await this.userModel.findById(userId);
     return this.addToCart(user.activeCart, addToCartDto);

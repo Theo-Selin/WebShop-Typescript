@@ -60,6 +60,9 @@ export const fetchUser = async () => <User>apiCallAuth("get", "/users/me");
 
 export const fetchCart = async () => apiCallAuth<Cart>("get", "/carts/active");
 
+export const fetchOrders = async () =>
+  apiCallAuth<Cart[]>("get", "/carts/checked-out");
+
 type ProductQuantity = {
   productId: string;
   quantity: number;
