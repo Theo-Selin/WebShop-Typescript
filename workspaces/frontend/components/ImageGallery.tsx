@@ -7,21 +7,12 @@ interface ProductProps {
 }
 
 const ImageGalleryComponent = ({ product }: ProductProps) => {
-  const images = [
-    {
-      original: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`,
-      thumbnail: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`,
-    },
-    {
-      original: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[1].path}`,
-      thumbnail: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[1].path}`,
-    },
-    {
-      original: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[2].path}`,
-      thumbnail: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[2].path}`,
-    },
-  ];
-  return images ? <ImageGallery items={images} /> : null;
+  const images = product.images.map((image) => ({
+    original: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${image.path}`,
+    thumbnail: `${process.env.NEXT_PUBLIC_BACKEND_URL}/${image.path}`,
+  }));
+
+  return images.length && <ImageGallery items={images} />;
 };
 
 export default ImageGalleryComponent;
