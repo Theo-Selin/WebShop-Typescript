@@ -5,6 +5,7 @@ import {
   checkoutOrder as apiCheckoutOrder,
   emptyCart as apiEmptyCart,
   fetchCart,
+  CheckoutOrderParams,
 } from "../api";
 
 const useCart = () => {
@@ -34,7 +35,8 @@ const useCart = () => {
   });
 
   const checkoutOrder = useMutation({
-    mutationFn: (address?: Address) => apiCheckoutOrder(address),
+    mutationFn: (checkoutAddress?: CheckoutOrderParams) =>
+      apiCheckoutOrder(checkoutAddress),
     onSuccess: () => {
       queryClient.invalidateQueries(["user"]);
       queryClient.invalidateQueries(["cart"]);

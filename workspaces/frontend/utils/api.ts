@@ -104,8 +104,16 @@ export const updateProductQuantity = async (data: ProductQuantity) =>
 export const emptyCart = async () =>
   apiCallAuth<Cart>("patch", "/carts/active/empty");
 
-export const checkoutOrder = async (address?: Address) =>
-  apiCallAuth<User, Address>("post", "/users/checkout", address);
+export type CheckoutOrderParams = {
+  deliveryAddress: Address;
+};
+
+export const checkoutOrder = async (checkoutAddress?: CheckoutOrderParams) =>
+  apiCallAuth<User, CheckoutOrderParams>(
+    "post",
+    "/users/checkout",
+    checkoutAddress
+  );
 
 export const addUpload = async (formData: FormData) =>
   apiCallAuth<Upload[] | Upload, FormData>("post", "/uploads", formData);
