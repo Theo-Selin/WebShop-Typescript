@@ -39,7 +39,7 @@ interface Cart {
   totalWeight: number;
   deliveryCost: number;
   user: string;
-  deliveryAddress: DeliveryAddress;
+  deliveryAddress: Address;
   createdAt: string;
 }
 
