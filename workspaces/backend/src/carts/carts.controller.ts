@@ -41,6 +41,7 @@ export class CartsController {
     return await this.cartsService.remove(id);
   }
 
+  @ResponseDto(FindOneResponseDto)
   @Roles(Role.Admin)
   @Get()
   async findAll() {

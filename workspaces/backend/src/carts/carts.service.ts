@@ -33,7 +33,26 @@ export class CartsService {
   }
 
   async findAll(): Promise<Cart[]> {
-    const carts = await this.cartModel.find().populate('products');
+    const carts = await this.cartModel
+      .find()
+      .populate('user')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'productId',
+          model: 'Product',
+          populate: [
+            {
+              path: 'category',
+              model: 'Category',
+            },
+            {
+              path: 'images',
+              model: 'Upload',
+            },
+          ],
+        },
+      });
     return carts;
   }
 
