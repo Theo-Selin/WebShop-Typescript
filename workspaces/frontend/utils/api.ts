@@ -77,7 +77,12 @@ export type UpdateUserParams = {
 export const updateUser = async (userDetails: UpdateUserParams) =>
   apiCallAuth<User>("patch", "/users/me", userDetails);
 
+export const fetchCarts = async () => apiCallAuth<Cart[]>("get", "/carts");
+
 export const fetchCart = async () => apiCallAuth<Cart>("get", "/carts/active");
+
+export const updateCartStatus = async (cartId: string, status: string) =>
+  apiCallAuth<Cart>("patch", `/carts/${cartId}`, { status });
 
 export const fetchOrders = async () =>
   apiCallAuth<Cart[]>("get", "/carts/checked-out");
