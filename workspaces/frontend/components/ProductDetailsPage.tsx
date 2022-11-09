@@ -3,7 +3,7 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import useCart from "../utils/hooks/useCart";
 import Button from "./Button";
-import ImageGallery from "./ImageGallery";
+import ImageGalleryComponent from "./ImageGallery";
 
 interface Props {
   product: Product;
@@ -33,7 +33,7 @@ const ProductDetailsPage = ({ product }: Props) => {
       <div className="container mx-auto w-full py-24 px-5">
         <div className="mx-auto my-20 flex flex-col bg-white p-10 shadow-lg ring-1 ring-black ring-opacity-5 md:w-1/2">
           {product.images.length > 0 ? (
-            <ImageGallery product={product} />
+            <ImageGalleryComponent product={product} />
           ) : null}
           <div className="mt-6 flex w-full flex-col justify-center gap-4 md:items-center">
             <h2 className="title-font text-sm tracking-widest text-gray-500">
