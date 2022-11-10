@@ -32,10 +32,10 @@ const UpdateUserProfile = ({ user, updateUser }: Props) => {
           fullName: user.fullName || "",
           email: user.email || "",
           phoneNumber: user.phoneNumber || "",
-          streetAddress: user.deliveryAddress.streetAddress || "",
-          zipCode: user.deliveryAddress.zipCode || "",
-          city: user.deliveryAddress.city || "",
-          country: user.deliveryAddress.country || "",
+          streetAddress: user.deliveryAddress?.streetAddress || "",
+          zipCode: user.deliveryAddress?.zipCode || "",
+          city: user.deliveryAddress?.city || "",
+          country: user.deliveryAddress?.country || "",
         }}
         onSubmit={(
           values: Values,

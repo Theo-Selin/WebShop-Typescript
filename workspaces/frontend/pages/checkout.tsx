@@ -98,6 +98,7 @@ const Checkout = () => {
             </h1>
             <p className="my-4">Free delivery and returns</p>
             <Button
+              type="button"
               title="Continue shopping"
               onClick={() => router.push("/")}
             />
