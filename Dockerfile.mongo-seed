@@ -1,0 +1,8 @@
+FROM mongo
+
+WORKDIR /usr/src/app
+
+COPY ./workspaces/backend/assets/products.json .
+COPY ./import-products.sh .
+
+CMD ["./import-products.sh"]
