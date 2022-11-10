@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile.frontend
+      args:
+        backend_url: http://backend:4000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    container_name: frontend-webshop
+    command: sh -c "npm run build -w workspaces/frontend && npm run start -w workspaces/frontend"
+
+  backend:
+    build:
+      network: host
+      dockerfile: Dockerfile.backend
+    ports:
+      - "4000:4000"
+    environment:
+      - SALT_ROUNDS=8
+      - JWT_SECRET=nåtsomärväldigthemligt
+      - UPLOADS_DESTINATION=./public/uploads
+      - MONGODB_URI=mongodb://db:27017/web-shop
+    depends_on:
+      - db
+    container_name: backend-webshop
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongodb-webshop
+    volumes:
+      - /data/db
+
+  # mongo_seed:
+  #   build:
+  #     dockerfile: Dockerfile.mongo-seed
+  #   depends_on:
+  #     - db
+  #   container_name: mongo_seed-webshop
