@@ -1,11 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
 import { LogoutIcon, UserIcon, ViewListIcon } from "@heroicons/react/outline";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import useUser from "../utils/hooks/useUser";
 
 const UserDropdown = () => {
   const { user } = useUser();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const id = user?._id;
   return (
     <div className="relative text-right">
@@ -56,6 +61,11 @@ const UserDropdown = () => {
               <Menu.Item>
                 {({ active }) => (
                   <div
+                    onClick={() => {
+                      localStorage.removeItem("webshop-jwt");
+                      queryClient.setQueryData(["user"], null);
+                      router.push("/");
+                    }}
                     className={`${
                       active
                         ? "bg-gradient-to-r from-violet-600 to-pink-600 text-white"
@@ -63,7 +73,7 @@ const UserDropdown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <LogoutIcon className="mx-4 h-4 w-4" />
-                    <Link href="/logout">Logout</Link>
+                    <span className="cursor-pointer">Logout</span>
                   </div>
                 )}
               </Menu.Item>
