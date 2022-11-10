@@ -111,15 +111,15 @@ const Checkout = () => {
                   <div className="pb-4">
                     <div className="flex justify-between">
                       <p>Subtotal:</p>
-                      <p>{price}:-</p>
+                      <p>{cart.totalPrice}:-</p>
                     </div>
                     <div className="flex justify-between">
                       <p>Weight:</p>
-                      <p>{weight}kg</p>
+                      <p>{cart.totalWeight}kg</p>
                     </div>
                     <div className="flex justify-between">
                       <p>Shipping:</p>
-                      <p>Free</p>
+                      <p>{cart.deliveryCost}:-</p>
                     </div>
                     <div className="flex justify-between">
                       <div className="flex flex-col gap-x-1 lg:flex-row">
