@@ -46,12 +46,18 @@
     @apply flex h-12 w-12 flex-shrink-0 cursor-pointer items-center justify-center;
   }
 
-
   /* Can't control background size with tailwind */
   .borderGradient {
     text-align: center;
     padding-bottom: 5px;
     background: linear-gradient(to right, #ec4899, #8b5cf6) left bottom no-repeat;
     background-size: 100% 2px;
+  }
+
+  img {
+    display: inline-block;
+    object-fit: contain;
+    max-height: 150px;
+    height: 500px;
   }
 }
