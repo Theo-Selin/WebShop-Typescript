@@ -3,7 +3,7 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import useCart from "../utils/hooks/useCart";
 import Button from "./Button";
-import ImageGalleryComponent from "./ImageGallery";
+import ImageGalleryComponent from "./ImageGalleryComponent";
 
 interface Props {
   product: Product;

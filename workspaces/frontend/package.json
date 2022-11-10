@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-image-gallery": "^1.2.11",
+    "react-responsive-carousel": "^3.2.23",
     "react-textarea-autosize": "^8.3.4"
   },
   "devDependencies": {
