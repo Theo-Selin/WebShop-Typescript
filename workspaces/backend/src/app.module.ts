@@ -16,7 +16,7 @@ import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot('mongodb://localhost:27017/web-shop'),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     ProductsModule,
     CategoriesModule,
     UsersModule,
