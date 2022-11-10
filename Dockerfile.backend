@@ -22,6 +22,10 @@ ENV SALT_ROUNDS=${salt_rounds}
 ENV JWT_SECRET=${secret}
 ENV UPLOADS_DESTINATION=${uploads_destination}
 
+ADD https://github.com/imakero/webshop-images/raw/main/images.zip ./workspaces/backend/public/uploads/images.zip
+RUN apk add zip
+RUN unzip workspaces/backend/public/uploads/images.zip -d workspaces/backend/public/uploads
+
 EXPOSE 4000:4000
 
 CMD ["node", "workspaces/backend/dist/main.js"]

@@ -68,11 +68,16 @@ export const apiCallAuth: ApiCallOverloads = async <ReturnType, InputType>(
     verb === "head" ||
     verb === "options"
   ) {
-    return apiCall(verb, url, {
+    return apiCall<ReturnType>(verb, url, {
       ...(bodyOrConfig as AxiosRequestConfig),
       headers,
     });
   } else {
-    return apiCall(verb, url, bodyOrConfig, { ...config, headers });
+    return apiCall<ReturnType, InputType>(
+      verb,
+      url,
+      bodyOrConfig as InputType | undefined,
+      { ...config, headers }
+    );
   }
 };

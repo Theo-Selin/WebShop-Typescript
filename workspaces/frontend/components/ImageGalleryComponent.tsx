@@ -15,17 +15,15 @@ const ImageGalleryComponent = ({ product }: ProductProps) => {
     sizes: "200px",
   }));
 
-  return (
-    images.length && (
-      <ImageGallery
-        items={images}
-        showPlayButton={false}
-        showNav={false}
-        showFullscreenButton={false}
-        lazyLoad={true}
-      />
-    )
-  );
+  return images.length ? (
+    <ImageGallery
+      items={images}
+      showPlayButton={false}
+      showNav={false}
+      showFullscreenButton={false}
+      lazyLoad={true}
+    />
+  ) : null;
 };
 
 export default ImageGalleryComponent;

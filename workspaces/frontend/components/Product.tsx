@@ -34,13 +34,17 @@ const Product = ({ product }: Props) => {
         {product.images.length ? (
           <Link href={`/products/${product._id}`}>
             <a>
-              <Image
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`}
-                alt={`${product.name}$ cover image`}
-                className="cursor-pointer"
-                layout="fill"
-                objectFit="contain"
-              />
+              {/* Next Image vs Docker a 100 part saga........*/}
+              <picture>
+                <img
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${product.images[0].path}`}
+                  alt={`${product.name}$ cover image`}
+                  className="cursor-pointer"
+                  style={{ width: "100%" }}
+                  // layout="fill"
+                  // objectFit="contain"
+                />
+              </picture>
             </a>
           </Link>
         ) : null}

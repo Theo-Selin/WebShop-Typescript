@@ -1,0 +1,352 @@
+[{
+  "_id": {
+    "$oid": "636cd46fe3a8213d0b024c74"
+  },
+  "name": "Samsung Galaxy S20",
+  "description": "Samsung Galaxy S20+ Dual SIM, 512 GB internminne, 8 GB RAM, ceramic white, [standard]\n\n\nVarumärke:\tSAMSUNG\nModellnamn:\tGalaxy S20 Plus\nTrådlös operatör:\tOlåst\nOperativsystem:\tAndroid\nCellulär teknik:\t4G\nMinneslagringskapacitet:\t512 GB\nFärg:\tKeramisk vit\nSkärmstorlek:\t6.4 tum\nFormfaktor:\tSmartphone",
+  "weight": 0.22,
+  "price": 7690,
+  "manufacturer": "SAMSUNG",
+  "images": [
+    {
+      "$oid": "636ce989e3a8213d0b0259cd"
+    },
+    {
+      "$oid": "636ce98be3a8213d0b0259e9"
+    },
+    {
+      "$oid": "636ce98de3a8213d0b025a05"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d3e3a8213d0b024b0f"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636ce840e3a8213d0b0256a4"
+  },
+  "name": "Apple iPhone 14 Pro",
+  "description": "Varumärke\tApple\nModellnamn\tiPhone 14 Pro\nTrådlös operatör\tAlla transportföretag\nOperativsystem\tiOS 16\nCellulär teknik\t5G\nMinneslagringskapacitet\t512 GB\nFärg\trymdsvart\nSkärmstorlek\t6.1 tum\nTyp av anslutning\tLightning\nFormfaktor\tSmartphone",
+  "weight": 0.5,
+  "price": 19490,
+  "manufacturer": "APPLE",
+  "images": [
+    {
+      "$oid": "636ce82ce3a8213d0b02563e"
+    },
+    {
+      "$oid": "636ce82fe3a8213d0b025660"
+    },
+    {
+      "$oid": "636ce832e3a8213d0b025682"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d3e3a8213d0b024b0f"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636ce8ece3a8213d0b025860"
+  },
+  "name": "Google 64 GB, Svart",
+  "description": "Varumärke\tGoogle\nModellnamn\tpixel\nTrådlös operatör\tAlla transportföretag\nOperativsystem\tAndroid 10.0\nCellulär teknik\t4G\nMinneslagringskapacitet\t6 GB\nTyp av anslutning\tBluetooth, Wi-Fi\nFärg\tSvart\nSkärmstorlek\t5.7 tum\nTeknik för trådlöst nätverk\tGSM, Wi-Fi, LTE",
+  "weight": 0.35,
+  "price": 8040,
+  "manufacturer": "GOOGLE",
+  "images": [
+    {
+      "$oid": "636ce8d8e3a8213d0b0257e2"
+    },
+    {
+      "$oid": "636ce8dbe3a8213d0b02580c"
+    },
+    {
+      "$oid": "636ce8dde3a8213d0b025836"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d3e3a8213d0b024b0f"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636ceab1e3a8213d0b025dfa"
+  },
+  "name": "Razer Blade 15",
+  "description": "Varumärke\tRazer\nSerier\tx\nSkärmstorlek\t15.6\nFärg\tsvart\nHårddiskstorlek\t512 GB\nCPU-modell\tIntel Core i7\nStorlek på installerat RAM-minne\t16 GB\nOperativsystem\tWindows 10 Home\nBeskrivning av grafikkort\tRTX 2070\nGrafisk hjälpprocessor\tRTX 2070",
+  "weight": 3,
+  "price": 24776,
+  "manufacturer": "RAZER",
+  "images": [
+    {
+      "$oid": "636ceaace3a8213d0b025dc4"
+    },
+    {
+      "$oid": "636ceaaee3a8213d0b025df6"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d8e3a8213d0b024b15"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636ceb0ae3a8213d0b025f62"
+  },
+  "name": "Lenovo IdeaPad 3 17,3''",
+  "description": "Lenovo IdeaPad 3 17,3'' HD+ bärbar dator laptop Intel Pentium Gold 7505, 8GB, 256GB, Windows 11 Home in S mode Nordic, Svenskt tangentbord, Abyss Blue, 82H900MVMX",
+  "weight": 2.5,
+  "price": 5475,
+  "manufacturer": "LENOVO",
+  "images": [
+    {
+      "$oid": "636ceaf9e3a8213d0b025eba"
+    },
+    {
+      "$oid": "636ceafce3a8213d0b025ef2"
+    },
+    {
+      "$oid": "636ceafee3a8213d0b025f2a"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d8e3a8213d0b024b15"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636ceb74e3a8213d0b02613e"
+  },
+  "name": "Apple MacBook Air 2020",
+  "description": "Apple MacBook Air Laptop 2020: Apples M1-chip, 13-tums Retina-skärm, 8 GB RAM- minne, 256 GB SSD-lagring, bakbelyst tangentbord, FaceTime HD-kamera, Touch ID – guld",
+  "weight": 1.15,
+  "price": 12480,
+  "manufacturer": "APPLE",
+  "images": [
+    {
+      "$oid": "636ceb6ae3a8213d0b02607e"
+    },
+    {
+      "$oid": "636ceb6de3a8213d0b0260be"
+    },
+    {
+      "$oid": "636ceb6ee3a8213d0b0260fe"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2d8e3a8213d0b024b15"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf1bee3a8213d0b026e6a"
+  },
+  "name": "Sony WH-CH710N",
+  "description": "Varumärke\tSony\nModellnamn\tWHCH710N\nFärg\tSvart\nFormfaktor\tOver-ear\nTyp av anslutning\tTrådlös, Kabel\nTrådlös kommunikationsteknik\tBluetooth, NFC\nSpecialfunktion\tlättvikt\nMontering av maskinvara\tkabel\nÅldersintervall (beskrivning)\tVuxen\nMaterial\tPlast",
+  "weight": 0.15,
+  "price": 879,
+  "manufacturer": "SONY",
+  "images": [
+    {
+      "$oid": "636cf1ace3a8213d0b026d92"
+    },
+    {
+      "$oid": "636cf1aee3a8213d0b026dda"
+    },
+    {
+      "$oid": "636cf1b0e3a8213d0b026e22"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2dee3a8213d0b024b1c"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf22be3a8213d0b027105"
+  },
+  "name": "Marshall Major IV",
+  "description": "Varumärke\tMarshall\nModellnamn\tMajor IV\nFärg\tSvart\nFormfaktor\tOn-ear\nTyp av anslutning\tTrådlös\nTrådlös kommunikationsteknik\tBluetooth\nSpecialfunktion\tvolymkontroll\nMontering av maskinvara\töronkuddar\nÅldersintervall (beskrivning)\tVuxen\nMaterial\tPlast",
+  "weight": 0.22,
+  "price": 1290,
+  "manufacturer": "MARSHALL",
+  "images": [
+    {
+      "$oid": "636cf21de3a8213d0b027015"
+    },
+    {
+      "$oid": "636cf21fe3a8213d0b027065"
+    },
+    {
+      "$oid": "636cf221e3a8213d0b0270b5"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2dee3a8213d0b024b1c"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf294e3a8213d0b02734d"
+  },
+  "name": "Sennheiser HD 599",
+  "description": "Förstklassiga hörlurar med öppen bakre sida och runt örat\nVadderat pannband och lyxiga öronkuddar\nErgonomisk akustisk förädling (E.A.R. ) som leder ljudsignalen direkt i örat\nHörlursslutare, öppet premiumhörlurar",
+  "weight": 0.26,
+  "price": 1367,
+  "manufacturer": "SENNHEISER",
+  "images": [
+    {
+      "$oid": "636cf283e3a8213d0b027245"
+    },
+    {
+      "$oid": "636cf286e3a8213d0b02729d"
+    },
+    {
+      "$oid": "636cf288e3a8213d0b0272f5"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2dee3a8213d0b024b1c"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf338e3a8213d0b02792d"
+  },
+  "name": "Logitech MX Master 2S",
+  "description": "Problemfri styrning på upp till 3 datorer med bara en mus.* * Logitech alternativ-programvara krävs, ladda ner från vår webbplats\nNjut av en optimal funktion överallt – med upp till 4 000 dpi. ** Minsta tjocklek på 4 mm.\nAnslut MX Master 2S enkelt via mikro-USB-laddningskabel till datorn och få tillräckligt med ström på bara tre minuter hela dagen. Batteriets livslängd är beroende av användning.\nMed rullhjulet som automatiskt växlar mellan exakt och hypersnabb rullning, bläddrar du dig snabbare och enklare med långa dokument och webbsidor.\nTack vare den högkvalitativa och handlagda design** håller händerna och handleden bekväma och naturliga hållning. Tack vare välåtkomliga knappar och hjul får du smidigt och ackumulerat styrning. **** Musens gjutform är baserad på en original handbearbetad design.",
+  "weight": 0.12,
+  "price": 799,
+  "manufacturer": "LOGITECH",
+  "images": [
+    {
+      "$oid": "636cf330e3a8213d0b0278cd"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2f8e3a8213d0b024b24"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf3b9e3a8213d0b027e63"
+  },
+  "name": "DELL KB216 USB QWERTY",
+  "description": "Varumärke\tDell\nKompatibla enheter\tPC / Server\nTyp av anslutning\tUSB\nBeskrivning av tangentbordet\tMultimedia\nRekommenderade användningsområden för produkt\tUniversal, PC / Server\nSpecialfunktion\ttangentbord, PC/Mac\nFärg\tsvart\nAntal tangenter\t104\nStil\tmultimedia tangentbord\nArtikelmått LxBxH\t20 x 10 x 10 centimeter",
+  "weight": 0.24,
+  "price": 183,
+  "manufacturer": "DELL",
+  "images": [
+    {
+      "$oid": "636cf3a8e3a8213d0b027d37"
+    },
+    {
+      "$oid": "636cf3abe3a8213d0b027d9b"
+    },
+    {
+      "$oid": "636cf3ade3a8213d0b027dff"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2f8e3a8213d0b024b24"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf422e3a8213d0b027fe6"
+  },
+  "name": "Belkin - BoostCharge",
+  "description": "Skillnaden hos Belkin: Ledaren bland tredjepartstillverkare av trådlösa laddningstillbehör*\nSäker snabb trådlös laddning med upp till 10 W för enheter med Qi\nKonstruerad för enheter med Qi, inklusive iPhone 12- och iPhone 13-serien, AirPods, Samsung Galaxy S10, S10+, S10e, Note10, Note10+ S9, S9+, Note9, Note9+, Google Pixel 4, 4XL, 3, 3XL med flera\nLaddar genom lätta plastfodral – upp till 3 mm\nOmfattas av 2 års garanti och Qi-certifiering",
+  "weight": 0.1,
+  "price": 279,
+  "manufacturer": "BELKIN",
+  "images": [
+    {
+      "$oid": "636cf47fe3a8213d0b0283e7"
+    },
+    {
+      "$oid": "636cf481e3a8213d0b028402"
+    },
+    {
+      "$oid": "636cf483e3a8213d0b02841d"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2f8e3a8213d0b024b24"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf52be3a8213d0b028986"
+  },
+  "name": "Allied Stinger-I",
+  "description": "LOAD UP. LOCK ON. LIGHT 'EM UP. Med en 6-kärnig Intel Core i5 11400F-processor, kraftfullt NVIDIA GeForce RTX 3060 8GB TI grafikkort och 16GB (2x8GB) 3200MHz DDR4 RAM, allt på en B560-chipset, är denna Allied speldator idealisk för 1080P och 1440P höga spelinställningar och fler multimediainställningar. Allied Stinger är inrymda i ett glansvitt chassis",
+  "weight": 12,
+  "price": 11495,
+  "manufacturer": "ALLIED",
+  "images": [
+    {
+      "$oid": "636cf51de3a8213d0b02882a"
+    },
+    {
+      "$oid": "636cf51fe3a8213d0b02889e"
+    },
+    {
+      "$oid": "636cf521e3a8213d0b028912"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2fbe3a8213d0b024b2d"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf5f4e3a8213d0b028cca"
+  },
+  "name": "Oversteel ULTIMET",
+  "description": "Finns i 6 färger: Svart-Svart, Svart-Vit, Svart-Blå, Grå-Grå, Grå-Vit och Grå-Blå\nStöder upp till 120 kg vikt\n350 mm nylonbas med klass 3 kolv och 50 mm hjul\nErgonomiskt utformad stol tillverkad av högkvalitativt andningsbart tyg och skum med hög densitet\n”Anpassningsbar nacke och ländryggskudde ingår. 2D armstöd justerbara i höjd och vinkel. Gungmekanism på stolens botten. Liggande ryggstöd upp till 180º”",
+  "weight": 17,
+  "price": 1752,
+  "manufacturer": "OVERSTEEL",
+  "images": [
+    {
+      "$oid": "636cf5e6e3a8213d0b028b56"
+    },
+    {
+      "$oid": "636cf5e9e3a8213d0b028bd2"
+    },
+    {
+      "$oid": "636cf5ece3a8213d0b028c4e"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2fbe3a8213d0b024b2d"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636cf64fe3a8213d0b02914c"
+  },
+  "name": "AOC Gaming 27G2ZU",
+  "description": "27 tum Full HD gaming display med FlickerFree och Low Blue Light-teknik för obegränsade spel kul och bildkvalitet av Free Sync Premium\nDetta ingår: AOC 27G2ZU/BK Curved-monitor 68,6 cm (27 tum) svart/röd, strömkabel, HDMI, displayort, drivrutins-CD, garantikort\nLjusstyrka/kontrast: 300 cd/m², 3 000: 1, Anslutningar: 2 x HDMI 2.0, 1 x displayort 1,2, USB 3.2 (GEN1) x 4\nTillverkargaranti: 3 år. Garantivillkoren finns i \"Fler tekniska information\". Dina lagstadgade garantirättigheter ska inte påverkas\nVA Cured Panel 1500R, Full HD, matt skärm, 130 mm justerbar höjd, hörlursuttag, Vesa 100 x 100, stående hål avtagbar, smal ram, inklusive högtalare och USB-hub (3.0)",
+  "weight": 6,
+  "price": 2871,
+  "manufacturer": "AOC",
+  "images": [
+    {
+      "$oid": "636cf643e3a8213d0b028fc0"
+    },
+    {
+      "$oid": "636cf646e3a8213d0b029044"
+    },
+    {
+      "$oid": "636cf648e3a8213d0b0290c8"
+    }
+  ],
+  "category": {
+    "$oid": "636cd2fbe3a8213d0b024b2d"
+  },
+  "__v": 0
+}]

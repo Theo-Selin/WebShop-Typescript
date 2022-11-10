@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "636cd2d3e3a8213d0b024b0f"
+  },
+  "name": "Phone",
+  "__v": 0,
+  "slug": "phone"
+},{
+  "_id": {
+    "$oid": "636cd2d8e3a8213d0b024b15"
+  },
+  "name": "Laptop",
+  "__v": 0,
+  "slug": "laptop"
+},{
+  "_id": {
+    "$oid": "636cd2dee3a8213d0b024b1c"
+  },
+  "name": "Sound",
+  "__v": 0,
+  "slug": "sound"
+},{
+  "_id": {
+    "$oid": "636cd2f8e3a8213d0b024b24"
+  },
+  "name": "Accessories",
+  "__v": 0,
+  "slug": "accessories"
+},{
+  "_id": {
+    "$oid": "636cd2fbe3a8213d0b024b2d"
+  },
+  "name": "Gaming",
+  "__v": 0,
+  "slug": "gaming"
+}]
