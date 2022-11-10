@@ -2,7 +2,12 @@ FROM mongo
 
 WORKDIR /usr/src/app
 
-COPY ./workspaces/backend/assets/products.json .
-COPY ./import-products.sh .
+COPY ./products.json .
+COPY ./categories.json .
+COPY ./uploads.json .
+COPY ./docker-entrypoint.sh .
 
-CMD ["./import-products.sh"]
+RUN ["chmod", "+x", "./docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
+CMD ["sh"]

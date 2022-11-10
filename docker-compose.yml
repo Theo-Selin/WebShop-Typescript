@@ -14,7 +14,6 @@ services:
 
   backend:
     build:
-      network: host
       dockerfile: Dockerfile.backend
     ports:
       - "4000:4000"
@@ -35,9 +34,9 @@ services:
     volumes:
       - /data/db
 
-  # mongo_seed:
-  #   build:
-  #     dockerfile: Dockerfile.mongo-seed
-  #   depends_on:
-  #     - db
-  #   container_name: mongo_seed-webshop
+  mongo_seed:
+    build:
+      dockerfile: Dockerfile.mongo-seed
+    depends_on:
+      - db
+    container_name: mongo_seed-webshop

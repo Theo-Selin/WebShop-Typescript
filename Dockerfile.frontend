@@ -14,6 +14,6 @@ COPY ./workspaces/shared ./workspaces/shared
 ARG backend_url
 
 ENV BACKEND_URL=${backend_url}
-ENV NEXT_PUBLIC_BACKEND_URL=${backend_url}
+ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
 
 EXPOSE 3000:3000
