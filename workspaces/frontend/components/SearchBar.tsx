@@ -9,9 +9,9 @@ type Props = {
 const SearchBar = ({ search, onSearch }: Props) => {
   return (
     <div>
-      <div className="mx-auto max-w-md overflow-hidden rounded-lg md:max-w-xl">
+      <div className="mx-auto max-w-xl overflow-hidden rounded-lg md:max-w-2xl">
         <div className="md:flex">
-          <div className="w-full p-14">
+          <div className="w-full p-4">
             <div className="relative">
               <input
                 type="text"
