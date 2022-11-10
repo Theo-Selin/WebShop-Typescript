@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import {
-  SearchIcon,
-  ShoppingBagIcon,
-  UserIcon,
-} from "@heroicons/react/outline";
+import { ShoppingBagIcon, UserIcon } from "@heroicons/react/outline";
 import useUser from "../utils/hooks/useUser";
 import AdminDropdown from "./AdminDropdown";
 import useCart from "../utils/hooks/useCart";
@@ -29,11 +25,13 @@ const Header = () => {
           </div>
         </Link>
       </div>
-      <div className="hidden flex-1 items-center justify-center space-x-8 md:flex">
-        <a className="headerLink">Product</a>
-        <a className="headerLink">Explore</a>
-        <a className="headerLink">Support</a>
-        <a className="headerLink">Business</a>
+      <div className="relative hidden h-5 w-5 flex-1 items-center justify-center space-x-8 md:flex">
+        <Image
+          src="/trustpilot.png"
+          layout="fill"
+          objectFit="contain"
+          alt="logo consisting of three merged letters"
+        />
       </div>
       <div className="flex items-center space-x-4 md:w-1/5">
         <Link href="/checkout">

@@ -1,7 +1,7 @@
 import { ChevronDoubleDownIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchCategories } from "../utils/api";
 import Landing from "./Landing";
 
@@ -11,6 +11,7 @@ type CategoryLayoutProps = {
 
 const CategoryLayout = ({ children }: CategoryLayoutProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const bottomRef = useRef<null | HTMLDivElement>(null);
 
   const router = useRouter();
 
@@ -23,7 +24,7 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
   return (
     <>
       <div className="static h-[200vh]">
-        <Landing />
+        <Landing bottomRef={bottomRef} />
         <ChevronDoubleDownIcon className="relative top-[95vh] m-auto h-8 w-8 text-gray-300" />
       </div>
       <section className="relative z-40 -mt-[100vh] min-h-screen bg-black/80 backdrop-blur-md">
@@ -46,6 +47,7 @@ const CategoryLayout = ({ children }: CategoryLayoutProps) => {
                   </div>
                 );
               })}
+              <div ref={bottomRef} />
             </div>
             <div>{children}</div>
           </div>
